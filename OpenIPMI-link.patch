@@ -5,7 +5,7 @@
  
  libOpenIPMIui_la_SOURCES = ui.c ui_os.c ui_keypad.c ui_command.c 
 -libOpenIPMIui_la_LIBADD =
-+libOpenIPMIui_la_LIBADD = $(top_builddir)/lib/libOpenIPMI.la -lncurses
++libOpenIPMIui_la_LIBADD = $(top_builddir)/lib/libOpenIPMI.la $(top_builddir)/unix/libOpenIPMIposix.la -lncurses
  libOpenIPMIui_la_LDFLAGS = -version-info $(LD_VERSION) \
  	-Wl,-Map -Wl,libOpenIPMIui.map
  
@@ -20,3 +20,13 @@
  libOpenIPMIpthread_la_LDFLAGS = -rdynamic -version-info $(LD_VERSION) \
  	-Wl,-Map -Wl,libOpenIPMIpthread.map
  
+--- OpenIPMI-1.4.7/cmdlang/Makefile.am.orig	2004-12-10 18:53:40.000000000 +0100
++++ OpenIPMI-1.4.7/cmdlang/Makefile.am	2005-01-17 00:31:08.191484448 +0100
+@@ -19,6 +19,7 @@
+ 	cmd_pef.c cmd_conn.c cmd_fru.c out_fru.c os_debug.c
+ libOpenIPMIcmdlang_la_LIBADD = -lm \
+ 	$(top_builddir)/utils/libOpenIPMIutils.la \
++	$(top_builddir)/unix/libOpenIPMIposix.la \
+ 	$(top_builddir)/lib/libOpenIPMI.la
+ libOpenIPMIcmdlang_la_LDFLAGS = -rdynamic -version-info $(LD_VERSION) \
+ 	-Wl,-Map -Wl,libOpenIPMIcmdlang.map
