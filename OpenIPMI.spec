@@ -1,12 +1,12 @@
 Summary:	IPMI abstraction layer
 Summary(pl):	Warstwa abstrakcji IPMI
 Name:		OpenIPMI
-Version:	1.1.8
+Version:	1.2.7
 Release:	1
 License:	LGPL (library), GPL (ipmicmd)
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/openipmi/%{name}-%{version}.tar.gz
-# Source0-md5:	b9ea45fffe80ed0d00890a080e9fb612
+# Source0-md5:	a64c3513fbca675bcdcc6451fbcd1dd8
 Patch0:		%{name}-link.patch
 URL:		http://openipmi.sourceforge.net/
 BuildRequires:	autoconf
@@ -31,7 +31,7 @@ interfejsu inteligentnego zarz±dzania platform±)
 Summary:	Development part of OpenIPMI Toolkit libraries
 Summary(pl):	Programistyczna cze¶æ bibliotek OpenIPMI
 Group:		Development/Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 
 %description devel
 Development part of OpenIPMI libraries.
@@ -43,7 +43,7 @@ Programistyczna cze¶æ bibliotek OpenIPMI.
 Summary:	Static OpenIPMI libraries
 Summary(pl):	Statyczne biblioteki OpenIPMI
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}
+Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static OpenIPMI Toolkit libraries.
