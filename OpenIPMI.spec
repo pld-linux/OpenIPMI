@@ -1,12 +1,12 @@
 Summary:	IPMI abstraction layer
 Summary(pl):	Warstwa abstrakcji IPMI
 Name:		OpenIPMI
-Version:	1.3.7
+Version:	1.3.8
 Release:	1
 License:	LGPL (library), GPL (ipmicmd)
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/openipmi/%{name}-%{version}.tar.gz
-# Source0-md5:	5f1d3ac34b2bee54a78c1b44c8f8f5c4
+# Source0-md5:	a16713c3913cc5997881d54c8cfe6375
 Patch0:		%{name}-link.patch
 URL:		http://openipmi.sourceforge.net/
 BuildRequires:	autoconf
