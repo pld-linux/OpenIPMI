@@ -1,16 +1,17 @@
 Summary:	IPMI abstraction layer
 Summary(pl):	Warstwa abstrakcji IPMI
 Name:		OpenIPMI
-Version:	1.4.8
+Version:	1.4.12
 Release:	1
 License:	LGPL (library), GPL (ipmicmd)
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/openipmi/%{name}-%{version}.tar.gz
-# Source0-md5:	51195f28b2afa3eb0e88f8da12c6c8d6
+# Source0-md5:	5df8e7ba28f020eafc175b1624c8d837
 Patch0:		%{name}-link.patch
 URL:		http://openipmi.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	gdbm-devel
 BuildRequires:	glib2-devel >= 2.0
 BuildRequires:	libtool >= 1:1.4.2-9
 BuildRequires:	ncurses-devel
