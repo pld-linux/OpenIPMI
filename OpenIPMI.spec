@@ -8,6 +8,7 @@ Group:		Libraries
 Source0:	http://dl.sourceforge.net/openipmi/%{name}-%{version}.tar.gz
 # Source0-md5:	288dfcc7d1de18783e9066bb82204c54
 Patch0:		%{name}-link.patch
+Patch1:		%{name}-headers.patch
 URL:		http://openipmi.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -70,6 +71,7 @@ Perlowy interfejs do OpenIPMI.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__libtoolize}
