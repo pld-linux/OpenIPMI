@@ -9,24 +9,24 @@
  libOpenIPMIui_la_LDFLAGS = -version-info $(LD_VERSION) \
  	-Wl,-Map -Wl,libOpenIPMIui.map
  
---- OpenIPMI-1.3.0/unix/Makefile.am.orig	2004-03-21 06:03:36.000000000 +0100
-+++ OpenIPMI-1.3.0/unix/Makefile.am	2004-03-26 22:49:47.573776136 +0100
+--- OpenIPMI-1.4.12/unix/Makefile.am.orig	2005-02-02 21:50:02.000000000 +0100
++++ OpenIPMI-1.4.12/unix/Makefile.am	2005-02-27 23:25:07.014728752 +0100
 @@ -16,7 +16,7 @@
  
- libOpenIPMIpthread_la_SOURCES = posix_thread_os_hnd.c
- libOpenIPMIpthread_la_LIBADD = -lpthread \
+ libOpenIPMIpthread_la_SOURCES = posix_thread_os_hnd.c selector.c
+ libOpenIPMIpthread_la_LIBADD = -lpthread $(GDBM_LIB) \
 -	$(top_builddir)/utils/libOpenIPMIutils.la
 +	$(top_builddir)/utils/libOpenIPMIutils.la $(top_builddir)/lib/libOpenIPMI.la
  libOpenIPMIpthread_la_LDFLAGS = -rdynamic -version-info $(LD_VERSION) \
  	-Wl,-Map -Wl,libOpenIPMIpthread.map
  
---- OpenIPMI-1.4.7/cmdlang/Makefile.am.orig	2004-12-10 18:53:40.000000000 +0100
-+++ OpenIPMI-1.4.7/cmdlang/Makefile.am	2005-01-17 00:31:08.191484448 +0100
+--- OpenIPMI-1.4.12/cmdlang/Makefile.am.orig	2005-02-02 21:52:18.000000000 +0100
++++ OpenIPMI-1.4.12/cmdlang/Makefile.am	2005-02-27 23:26:15.002393056 +0100
 @@ -19,6 +19,7 @@
  	cmd_pef.c cmd_conn.c cmd_fru.c out_fru.c os_debug.c
  libOpenIPMIcmdlang_la_LIBADD = -lm \
  	$(top_builddir)/utils/libOpenIPMIutils.la \
 +	$(top_builddir)/unix/libOpenIPMIposix.la \
- 	$(top_builddir)/lib/libOpenIPMI.la
- libOpenIPMIcmdlang_la_LDFLAGS = -rdynamic -version-info $(LD_VERSION) \
- 	-Wl,-Map -Wl,libOpenIPMIcmdlang.map
+ 	$(top_builddir)/lib/libOpenIPMI.la \
+ 	$(GDBM_LIB)
+ 
