@@ -1,30 +1,3 @@
---- OpenIPMI-1.1.5/utils/Makefile.am.orig	2003-07-22 17:39:14.000000000 +0200
-+++ OpenIPMI-1.1.5/utils/Makefile.am	2003-12-12 00:48:36.337816488 +0100
-@@ -1,10 +1,10 @@
- 
- AM_CFLAGS = -Wall -I$(top_srcdir)/include -DIPMI_CHECK_LOCKS
- 
--lib_LIBRARIES = libIPMIutils.a
-+noinst_LTLIBRARIES = libIPMIutils.la
- 
--libIPMIutils_a_SOURCES = md5.c md2.c ipmi_auth.c
--libIPMIutils_a_LIBADD = 
-+libIPMIutils_la_SOURCES = md5.c md2.c ipmi_auth.c
-+libIPMIutils_la_LIBADD = 
- 
- noinst_PROGRAMS = test_md2 test_md5
- 
---- OpenIPMI-1.2.7/lib/Makefile.am.orig	2003-10-06 16:07:41.000000000 +0200
-+++ OpenIPMI-1.2.7/lib/Makefile.am	2003-12-12 00:49:57.977405384 +0100
-@@ -21,7 +21,7 @@
- 	ilist.c ipmi_smi.c opq.c sel.c sensor.c ipmi_lan.c \
- 	strings.c ipmi_malloc.c oem_force_conn.c \
- 	oem_motorola_mxp.c oem_motorola_mxp_intf.c oem_atca_conn.c
--libOpenIPMI_la_LIBADD = -lm $(top_builddir)/utils/libIPMIutils.a
-+libOpenIPMI_la_LIBADD = -lm $(top_builddir)/utils/libIPMIutils.la
- libOpenIPMI_la_LDFLAGS = -rdynamic -version-info $(LD_VERSION) \
- 	-Wl,-Map -Wl,libOpenIPMI.map
- 
 --- OpenIPMI-1.1.5/ui/Makefile.am.orig	2003-07-22 20:26:15.000000000 +0200
 +++ OpenIPMI-1.1.5/ui/Makefile.am	2003-12-12 00:51:25.053167856 +0100
 @@ -20,7 +20,7 @@
@@ -36,14 +9,14 @@
  libOpenIPMIui_la_LDFLAGS = -version-info $(LD_VERSION) \
  	-Wl,-Map -Wl,libOpenIPMIui.map
  
---- OpenIPMI-1.1.8/lanserv/Makefile.am.orig	2003-12-09 14:35:54.000000000 +0100
-+++ OpenIPMI-1.1.8/lanserv/Makefile.am	2004-01-02 22:38:46.244511664 +0100
-@@ -23,7 +23,7 @@
+--- OpenIPMI-1.3.0/unix/Makefile.am.orig	2004-03-21 06:03:36.000000000 +0100
++++ OpenIPMI-1.3.0/unix/Makefile.am	2004-03-26 22:49:47.573776136 +0100
+@@ -16,7 +16,7 @@
  
- libIPMIlanserv_la_SOURCES = lanserv_ipmi.c lanserv_asf.c priv_table.c \
- 	lanserv_oem_force.c lanserv_config.c
--libIPMIlanserv_la_LIBADD = $(top_builddir)/utils/libIPMIutils.a
-+libIPMIlanserv_la_LIBADD = $(top_builddir)/utils/libIPMIutils.la
- libIPMIlanserv_la_LDFLAGS = -version-info $(LD_VERSION) \
- 	-Wl,-Map -Wl,libIPMIlanserv.map
+ libOpenIPMIpthread_la_SOURCES = posix_thread_os_hnd.c
+ libOpenIPMIpthread_la_LIBADD = -lpthread \
+-	$(top_builddir)/utils/libOpenIPMIutils.la
++	$(top_builddir)/utils/libOpenIPMIutils.la $(top_builddir)/lib/libOpenIPMI.la
+ libOpenIPMIpthread_la_LDFLAGS = -rdynamic -version-info $(LD_VERSION) \
+ 	-Wl,-Map -Wl,libOpenIPMIpthread.map
  
