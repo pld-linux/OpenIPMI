@@ -1,49 +1,66 @@
-%include	/usr/lib/rpm/macros.perl
 Summary:	IPMI abstraction layer
+Summary(pl):	Warstwa abstrakcji IPMI
 Name:		OpenIPMI
 Version:	1.1.5
 Release:	1
-License:	Apache-style License
+License:	LGPL (library), GPL (ipmicmd)
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/openipmi/%{name}-%{version}.tar.gz
 # Source0-md5:	133fc7a56b815c4f1b64bd790a0d0dc6
+Patch0:		%{name}-link.patch
 URL:		http://openipmi.sourceforge.net/
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool >= 1:1.4.2-9
 BuildRequires:	ncurses-devel
+BuildRequires:	popt-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Open IPMI project aims to develop an open code base to allow access to
+OpenIPMI project aims to develop an open code base to allow access to
 platform information using Intelligent Platform Management Interface
 (IPMI).
 
+%description -l pl
+Celem projektu OpenIPMI jest stworzenie otwartej podstawy kodu
+pozwalaj±cego na dostêp do informacji o platformie pzy u¿yciu
+interfejsu IPMI (Intelligent Platform Management Interface -
+interfejsu inteligentnego zarz±dzania platform±)
+
 %package devel
 Summary:	Development part of OpenIPMI Toolkit libraries
+Summary(pl):	Programistyczna cze¶æ bibliotek OpenIPMI
 Group:		Development/Libraries
 Requires:	%{name} = %{version}
 
 %description devel
-Development part of OpenIPMI library.
+Development part of OpenIPMI libraries.
+
+%description devel -l pl
+Programistyczna cze¶æ bibliotek OpenIPMI.
 
 %package static
 Summary:	Static OpenIPMI libraries
+Summary(pl):	Statyczne biblioteki OpenIPMI
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}
 
 %description static
 Static OpenIPMI Toolkit libraries.
 
-# this is workaround only, to be removed in future
-%define		no_install_post_strip	1
+%description static -l pl
+Statyczne biblioteki OpenIPMI.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
 %{__automake}
-CPPFLAGS="-I%{_includedir}/ncurses";
+CPPFLAGS="-I/usr/include/ncurses"
 %configure
 %{__make}
 
@@ -61,9 +78,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib*.so.*.*
 %doc ChangeLog FAQ README* TODO
 %attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_libdir}/lib*.so.*.*
 %{_infodir}/%{name}*
 %{_mandir}/man?/*
 
