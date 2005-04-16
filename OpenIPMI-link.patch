@@ -20,13 +20,13 @@
  libOpenIPMIpthread_la_LDFLAGS = -rdynamic -version-info $(LD_VERSION) \
  	-Wl,-Map -Wl,libOpenIPMIpthread.map
  
---- OpenIPMI-1.4.12/cmdlang/Makefile.am.orig	2005-02-02 21:52:18.000000000 +0100
-+++ OpenIPMI-1.4.12/cmdlang/Makefile.am	2005-02-27 23:26:15.002393056 +0100
+--- OpenIPMI-2.0.0/cmdlang/Makefile.am.orig	2005-03-10 16:58:13.000000000 +0100
++++ OpenIPMI-2.0.0/cmdlang/Makefile.am	2005-04-16 02:40:01.125790968 +0200
 @@ -19,6 +19,7 @@
  	cmd_pef.c cmd_conn.c cmd_fru.c out_fru.c os_debug.c
  libOpenIPMIcmdlang_la_LIBADD = -lm \
  	$(top_builddir)/utils/libOpenIPMIutils.la \
 +	$(top_builddir)/unix/libOpenIPMIposix.la \
- 	$(top_builddir)/lib/libOpenIPMI.la \
- 	$(GDBM_LIB)
- 
+ 	$(top_builddir)/lib/libOpenIPMI.la
+ libOpenIPMIcmdlang_la_LDFLAGS = -rdynamic -version-info $(LD_VERSION) \
+ 	-Wl,-Map -Wl,libOpenIPMIcmdlang.map
