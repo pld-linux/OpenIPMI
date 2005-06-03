@@ -30,3 +30,14 @@
  	$(top_builddir)/lib/libOpenIPMI.la
  libOpenIPMIcmdlang_la_LDFLAGS = -rdynamic -version-info $(LD_VERSION) \
  	-Wl,-Map -Wl,libOpenIPMIcmdlang.map
+--- OpenIPMI-2.0.0/lib/Makefile.am.orig	2005-03-24 06:23:49.000000000 +0100
++++ OpenIPMI-2.0.0/lib/Makefile.am	2005-06-03 11:23:08.000000000 +0200
+@@ -20,7 +20,7 @@
+ 	oem_force_conn.c oem_motorola_mxp.c oem_atca_conn.c oem_atca.c \
+ 	ipmi_lan.c oem_test.c oem_intel.c ipmi_payload.c rakp.c aes_cbc.c \
+ 	hmac.c md5.c ipmi_smi.c
+-libOpenIPMI_la_LIBADD = -lm $(top_builddir)/utils/libOpenIPMIutils.la
++libOpenIPMI_la_LIBADD = -lm $(top_builddir)/utils/libOpenIPMIutils.la -lcrypto
+ libOpenIPMI_la_LDFLAGS = -rdynamic -version-info $(LD_VERSION) \
+ 	-Wl,-Map -Wl,libOpenIPMI.map
+ 
