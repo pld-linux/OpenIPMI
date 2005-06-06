@@ -11,6 +11,7 @@ Patch0:		%{name}-link.patch
 URL:		http://openipmi.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	gcc >= 5:3.2
 BuildRequires:	gdbm-devel
 BuildRequires:	glib2-devel >= 2.0
 BuildRequires:	libtool >= 1:1.4.2-9
