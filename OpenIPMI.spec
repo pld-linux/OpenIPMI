@@ -135,5 +135,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{perl_vendorarch}/auto/OpenIPMI/OpenIPMI.so
 
 %files -n python-%{name}
+%defattr(644,root,root,755)
 %attr(755,root,root) %{py_sitescriptdir}/*.so
 %{py_sitescriptdir}/*.py[oc]
