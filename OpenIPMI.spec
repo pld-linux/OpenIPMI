@@ -79,6 +79,7 @@ Summary:        Python interface to OpenIPMI
 Summary(pl):    Pythonowy interfejs do OpenIPMI
 Group:          Development/Languages/Python
 Requires:       %{name} = %{version}-%{release}
+%pyrequires_eq	python-libs
 
 %description -n python-%{name}
 Python interface to OpenIPMI.
