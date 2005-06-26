@@ -1,5 +1,6 @@
-# - check python package
-# what about /usr/share/python2.4/site-packages/OpenIPMI.py ?
+#
+# TODO:
+# - FHS compliance
 
 Summary:	IPMI abstraction layer
 Summary(pl):	Warstwa abstrakcji IPMI
@@ -103,6 +104,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+rm -f $RPM_BUILD_ROOT%{py_sitescriptdir}/*.py
 
 %clean
 rm -rf $RPM_BUILD_ROOT
