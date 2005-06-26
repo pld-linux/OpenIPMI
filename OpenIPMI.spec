@@ -1,12 +1,15 @@
+# - check python package
+# what about /usr/share/python2.4/site-packages/OpenIPMI.py ?
+
 Summary:	IPMI abstraction layer
 Summary(pl):	Warstwa abstrakcji IPMI
 Name:		OpenIPMI
-Version:	2.0.0
-Release:	2
+Version:	2.0.1
+Release:	0.99
 License:	LGPL (library), GPL (ipmicmd)
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/openipmi/%{name}-%{version}.tar.gz
-# Source0-md5:	03176ff27cdd3dbce6c0bab7ab4eb234
+# Source0-md5:	b5474114ff84a872c5075744201bc4f0
 Patch0:		%{name}-link.patch
 URL:		http://openipmi.sourceforge.net/
 BuildRequires:	autoconf
@@ -70,6 +73,18 @@ Perl interface to OpenIPMI.
 %description -n perl-%{name} -l pl
 Perlowy interfejs do OpenIPMI.
 
+%package -n python-%{name}
+Summary:        Python interface to OpenIPMI
+Summary(pl):    Pythonowy interfejs do OpenIPMI
+Group:          Development/Languages/Python
+Requires:       %{name} = %{version}-%{release}
+
+%description -n python-%{name}
+Python interface to OpenIPMI.
+
+%description -n perl-%{name} -l pl
+Pythonowy interfejs do OpenIPMI.
+
 %prep
 %setup -q
 %patch0 -p1
@@ -118,3 +133,7 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorarch}/OpenIPMI.pm
 %dir %{perl_vendorarch}/auto/OpenIPMI
 %attr(755,root,root) %{perl_vendorarch}/auto/OpenIPMI/OpenIPMI.so
+
+%files -n python-%{name}
+%attr(755,root,root) %{py_sitescriptdir}/*.so
+%{py_sitescriptdir}/*.py[oc]
