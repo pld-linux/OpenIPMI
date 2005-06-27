@@ -1,7 +1,3 @@
-#
-# TODO:
-# - FHS compliance
-
 Summary:	IPMI abstraction layer
 Summary(pl):	Warstwa abstrakcji IPMI
 Name:		OpenIPMI
@@ -104,9 +100,10 @@ CPPFLAGS="-I/usr/include/ncurses"
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT \
+	PYTHON_INSTALL_DIR=%{py_sitedir}
 
-rm -f $RPM_BUILD_ROOT%{py_sitescriptdir}/*.py
+rm -f $RPM_BUILD_ROOT%{py_sitedir}/*.py
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -140,5 +137,5 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n python-%{name}
 %defattr(644,root,root,755)
-%attr(755,root,root) %{py_sitescriptdir}/*.so
-%{py_sitescriptdir}/*.py[oc]
+%attr(755,root,root) %{py_sitedir}/*.so
+%{py_sitedir}/*.py[oc]
