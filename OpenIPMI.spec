@@ -40,6 +40,7 @@ Summary:	Development part of OpenIPMI Toolkit libraries
 Summary(pl):	Programistyczna cze¶æ bibliotek OpenIPMI
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	pkgconfig
 
 %description devel
 Development part of OpenIPMI libraries.
@@ -72,10 +73,10 @@ Perl interface to OpenIPMI.
 Perlowy interfejs do OpenIPMI.
 
 %package -n python-%{name}
-Summary:        Python interface to OpenIPMI
-Summary(pl):    Pythonowy interfejs do OpenIPMI
-Group:          Development/Languages/Python
-Requires:       %{name} = %{version}-%{release}
+Summary:	Python interface to OpenIPMI
+Summary(pl):	Pythonowy interfejs do OpenIPMI
+Group:		Development/Languages/Python
+Requires:	%{name} = %{version}-%{release}
 %pyrequires_eq	python-libs
 
 %description -n python-%{name}
