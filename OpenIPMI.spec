@@ -20,6 +20,7 @@ BuildRequires:	net-snmp-devel
 BuildRequires:	perl-devel
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
+BuildRequires:	python-devel
 BuildRequires:	swig-perl >= 1.3.25
 BuildRequires:	swig-python >= 1.3.25
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
