@@ -41,7 +41,6 @@ Summary:	Development part of OpenIPMI Toolkit libraries
 Summary(pl):	Programistyczna cze¶æ bibliotek OpenIPMI
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	pkgconfig
 
 %description devel
 Development part of OpenIPMI libraries.
