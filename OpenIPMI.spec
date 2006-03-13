@@ -1,13 +1,18 @@
+#
+# Conditional build:
+%bcond_without	gui	# don't build wxPython-based GUI
+#
 Summary:	IPMI abstraction layer
 Summary(pl):	Warstwa abstrakcji IPMI
 Name:		OpenIPMI
-Version:	2.0.4
+Version:	2.0.6
 Release:	1
 License:	LGPL (library), GPL (ipmicmd)
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/openipmi/%{name}-%{version}.tar.gz
-# Source0-md5:	c80f1bdf97b6f0601caae5323d6487be
+# Source0-md5:	43be79ea0693dbde0420202e721b5232
 Patch0:		%{name}-link.patch
+Patch1:		%{name}-python.patch
 URL:		http://openipmi.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -21,6 +26,8 @@ BuildRequires:	perl-devel
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
 BuildRequires:	python-devel
+%{?with_gui:BuildRequires:	python-wxPython}
+BuildRequires:	rpm-pythonprov
 BuildRequires:	swig-perl >= 1.3.25
 BuildRequires:	swig-python >= 1.3.25
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -85,9 +92,23 @@ Python interface to OpenIPMI.
 %description -n perl-%{name} -l pl
 Pythonowy interfejs do OpenIPMI.
 
+%package gui
+Summary:	OpenIPMI GUI
+Summary(pl):	Graficzny interfejs u¿ytkownika do OpenIPMI
+Group:		X11/Applications
+Requires:	python-%{name} = %{version}-%{release}
+Requires:	python-wxPython
+
+%description gui
+OpenIPMI GUI.
+
+%description gui -l pl
+Graficzny interfejs u¿ytkownika do OpenIPMI.
+
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__libtoolize}
@@ -95,8 +116,11 @@ Pythonowy interfejs do OpenIPMI.
 %{__autoconf}
 %{__automake}
 CPPFLAGS="-I/usr/include/ncurses"
-%configure
-%{__make}
+%configure \
+	--without-glib12 \
+	%{!?with_gui:--without-wxpython}
+%{__make} \
+	PYTHON_INSTALL_DIR=%{py_sitedir}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -105,7 +129,8 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT \
 	PYTHON_INSTALL_DIR=%{py_sitedir}
 
-rm -f $RPM_BUILD_ROOT%{py_sitedir}/*.py
+rm -f $RPM_BUILD_ROOT%{py_sitedir}/*.{py,la,a} \
+	$RPM_BUILD_ROOT%{py_sitedir}/openipmigui/*.py
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -116,7 +141,11 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc ChangeLog FAQ README* TODO
-%attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_bindir}/ipmi*
+%attr(755,root,root) %{_bindir}/openipmicmd
+%attr(755,root,root) %{_bindir}/openipmish
+%attr(755,root,root) %{_bindir}/rmcp_ping
+%attr(755,root,root) %{_bindir}/solterm
 %attr(755,root,root) %{_libdir}/lib*.so.*.*.*
 %{_mandir}/man[178]/*
 
@@ -139,5 +168,14 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n python-%{name}
 %defattr(644,root,root,755)
-%attr(755,root,root) %{py_sitedir}/*.so
-%{py_sitedir}/*.py[oc]
+%attr(755,root,root) %{py_sitedir}/_OpenIPMI.so
+%{py_sitedir}/OpenIPMI.py[co]
+
+%if %{with gui}
+%files gui
+%defattr(644,root,root,755)
+%doc swig/python/openipmigui/TODO
+%attr(755,root,root) %{_bindir}/openipmigui
+%dir %{py_sitedir}/openipmigui
+%{py_sitedir}/openipmigui/*.py[co]
+%endif
