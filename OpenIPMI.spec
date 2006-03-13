@@ -125,7 +125,7 @@ CPPFLAGS="-I/usr/include/ncurses"
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
+%{__make} install -j1 \
 	DESTDIR=$RPM_BUILD_ROOT \
 	PYTHON_INSTALL_DIR=%{py_sitedir}
 
