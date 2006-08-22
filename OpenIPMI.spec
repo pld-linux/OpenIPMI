@@ -1,16 +1,16 @@
 #
 # Conditional build:
-%bcond_without	gui	# don't build wxPython-based GUI
+%bcond_without	gui	# don't build tkinter-based GUI
 #
 Summary:	IPMI abstraction layer
 Summary(pl):	Warstwa abstrakcji IPMI
 Name:		OpenIPMI
-Version:	2.0.6
+Version:	2.0.7
 Release:	1
 License:	LGPL (library), GPL (ipmicmd)
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/openipmi/%{name}-%{version}.tar.gz
-# Source0-md5:	43be79ea0693dbde0420202e721b5232
+# Source0-md5:	0c7226e8b56070bd0e4675fa25b5d4b3
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-python.patch
 URL:		http://openipmi.sourceforge.net/
@@ -26,7 +26,8 @@ BuildRequires:	perl-devel
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
 BuildRequires:	python-devel
-%{?with_gui:BuildRequires:	python-wxPython}
+%{?with_gui:BuildRequires:	python-tkinter}
+BuildRequires:	tcl-devel
 BuildRequires:	rpm-pythonprov
 BuildRequires:	swig-perl >= 1.3.25
 BuildRequires:	swig-python >= 1.3.25
@@ -97,7 +98,7 @@ Summary:	OpenIPMI GUI
 Summary(pl):	Graficzny interfejs u¿ytkownika do OpenIPMI
 Group:		X11/Applications
 Requires:	python-%{name} = %{version}-%{release}
-Requires:	python-wxPython
+Requires:	python-tkinter
 
 %description gui
 OpenIPMI GUI.
@@ -118,7 +119,7 @@ Graficzny interfejs u¿ytkownika do OpenIPMI.
 CPPFLAGS="-I/usr/include/ncurses"
 %configure \
 	--without-glib12 \
-	%{!?with_gui:--without-wxpython}
+	%{!?with_gui:--without-tkinter}
 %{__make} \
 	PYTHON_INSTALL_DIR=%{py_sitedir}
 
