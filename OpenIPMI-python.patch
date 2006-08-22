@@ -1,16 +1,16 @@
---- OpenIPMI-2.0.6/swig/python/openipmigui/Makefile.am.orig	2006-02-11 00:15:26.000000000 +0100
-+++ OpenIPMI-2.0.6/swig/python/openipmigui/Makefile.am	2006-03-13 21:53:53.419843750 +0100
-@@ -23,7 +23,7 @@
+--- OpenIPMI-2.0.7/swig/python/openipmigui/Makefile.am.orig	2006-06-08 05:10:43.000000000 +0200
++++ OpenIPMI-2.0.7/swig/python/openipmigui/Makefile.am	2006-08-22 12:20:57.085971000 +0200
+@@ -26,7 +26,7 @@
  	$(INSTALL) -d $(DESTDIR)$(PYTHON_INSTALL_DIR)/openipmigui
  	$(INSTALL_PROGRAM) $^ $(DESTDIR)$(PYTHON_INSTALL_DIR)/openipmigui
  
 -PYPATH=$(top_builddir)/swig/python:$(srcdir)
 +PYPATH=$(top_builddir)/swig/python:$(top_builddir)/swig/python/.libs:$(srcdir)
- PYLDPATH=$(top_builddir)/lib/.libs:$(top_builddir)/utils/.libs:$(top_builddir)/glib/.libs:$(top_builddir)/unix/.libs:$(top_builddir)/cmdlang/.libs
+ PYLDPATH=$(top_builddir)/lib/.libs:$(top_builddir)/utils/.libs:$(top_builddir)/glib/.libs:$(top_builddir)/unix/.libs:$(top_builddir)/cmdlang/.libs:$(top_builddir)/tcl/.libs
  
  .py.pyc:
---- OpenIPMI-2.0.6/swig/python/Makefile.am.orig	2006-02-10 18:59:10.000000000 +0100
-+++ OpenIPMI-2.0.6/swig/python/Makefile.am	2006-03-13 21:54:31.530225500 +0100
+--- OpenIPMI-2.0.7/swig/python/Makefile.am.orig	2006-04-06 16:13:47.000000000 +0200
++++ OpenIPMI-2.0.7/swig/python/Makefile.am	2006-08-22 12:20:35.075971000 +0200
 @@ -5,20 +5,15 @@
  	    -I $(top_builddir) \
  	    -I $(top_builddir)/include \
@@ -81,6 +81,6 @@
  
 -PYPATH=$(top_builddir)/swig/python
 +PYPATH=$(top_builddir)/swig/python:$(top_builddir)/swig/python/.libs
- PYLDPATH=$(top_builddir)/lib/.libs:$(top_builddir)/utils/.libs:$(top_builddir)/glib/.libs:$(top_builddir)/unix/.libs:$(top_builddir)/cmdlang/.libs
+ PYLDPATH=$(top_builddir)/lib/.libs:$(top_builddir)/utils/.libs:$(top_builddir)/glib/.libs:$(top_builddir)/unix/.libs:$(top_builddir)/cmdlang/.libs:$(top_builddir)/tcl/.libs
  
  rungui:
