@@ -9,8 +9,8 @@
  PYLDPATH=$(top_builddir)/lib/.libs:$(top_builddir)/utils/.libs:$(top_builddir)/glib/.libs:$(top_builddir)/unix/.libs:$(top_builddir)/cmdlang/.libs:$(top_builddir)/tcl/.libs
  
  .py.pyc:
---- OpenIPMI-2.0.7/swig/python/Makefile.am.orig	2006-04-06 16:13:47.000000000 +0200
-+++ OpenIPMI-2.0.7/swig/python/Makefile.am	2006-08-22 12:20:35.075971000 +0200
+--- OpenIPMI-2.0.8/swig/python/Makefile.am.orig	2006-09-22 23:05:17.000000000 +0200
++++ OpenIPMI-2.0.8/swig/python/Makefile.am	2006-10-06 12:48:44.095971000 +0200
 @@ -5,20 +5,15 @@
  	    -I $(top_builddir) \
  	    -I $(top_builddir)/include \
@@ -71,13 +71,13 @@
 -install-exec-local: _OpenIPMI.so OpenIPMI.py OpenIPMI.pyc OpenIPMI.pyo
 +install-exec-local: _OpenIPMI.la OpenIPMI.py OpenIPMI.pyc OpenIPMI.pyo
  	$(INSTALL) -d $(DESTDIR)$(PYTHON_INSTALL_DIR)
--	$(LIBTOOL) --mode=install $(INSTALL_PROGRAM) _OpenIPMI.so $(DESTDIR)$(PYTHON_INSTALL_DIR)
- 	$(INSTALL_PROGRAM) OpenIPMI.py $(DESTDIR)$(PYTHON_INSTALL_DIR)
- 	$(INSTALL_PROGRAM) OpenIPMI.pyc $(DESTDIR)$(PYTHON_INSTALL_DIR)
- 	$(INSTALL_PROGRAM) OpenIPMI.pyo $(DESTDIR)$(PYTHON_INSTALL_DIR)
-@@ -59,7 +43,7 @@
- 	    $(INSTALL_PROGRAM) openipmigui.py $(DESTDIR)$(bindir)/openipmigui;\
- 	fi
+-	$(LIBTOOL) --mode=install $(INSTALL_PROGRAM) _OpenIPMI.so "$(DESTDIR)$(PYTHON_INSTALL_DIR)"
+ 	$(INSTALL_PROGRAM) OpenIPMI.py "$(DESTDIR)$(PYTHON_INSTALL_DIR)"
+ 	$(INSTALL_PROGRAM) OpenIPMI.pyc "$(DESTDIR)$(PYTHON_INSTALL_DIR)"
+ 	$(INSTALL_PROGRAM) OpenIPMI.pyo "$(DESTDIR)$(PYTHON_INSTALL_DIR)"
+@@ -66,7 +50,7 @@
+ 	rm -f "$(DESTDIR)$(PYTHON_INSTALL_DIR)/OpenIPMI.pyo"
+ 	rm -f "$(DESTDIR)$(bindir)/openipmigui"
  
 -PYPATH=$(top_builddir)/swig/python
 +PYPATH=$(top_builddir)/swig/python:$(top_builddir)/swig/python/.libs
