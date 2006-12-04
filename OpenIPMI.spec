@@ -1,3 +1,8 @@
+# TODO
+# - bad BR (version mismatch):
+#  File "_mc_user.py", line 240, in ?
+#    class MCUsers(gui_treelist.TreeList): AttributeError: 'module' object has no attribute 'TreeList'
+#  make[4]: *** [_entity.pyc] Error 1
 #
 # Conditional build:
 %bcond_without	gui	# don't build tkinter-based GUI
