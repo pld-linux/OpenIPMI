@@ -8,7 +8,7 @@
 %bcond_without	gui	# don't build tkinter-based GUI
 #
 Summary:	IPMI abstraction layer
-Summary(pl):	Warstwa abstrakcji IPMI
+Summary(pl.UTF-8):   Warstwa abstrakcji IPMI
 Name:		OpenIPMI
 Version:	2.0.10
 Release:	2
@@ -43,51 +43,51 @@ OpenIPMI project aims to develop an open code base to allow access to
 platform information using Intelligent Platform Management Interface
 (IPMI).
 
-%description -l pl
+%description -l pl.UTF-8
 Celem projektu OpenIPMI jest stworzenie otwartej podstawy kodu
-pozwalaj±cego na dostêp do informacji o platformie pzy u¿yciu
+pozwalajÄ…cego na dostÄ™p do informacji o platformie pzy uÅ¼yciu
 interfejsu IPMI (Intelligent Platform Management Interface -
-interfejsu inteligentnego zarz±dzania platform±)
+interfejsu inteligentnego zarzÄ…dzania platformÄ…)
 
 %package devel
 Summary:	Development part of OpenIPMI Toolkit libraries
-Summary(pl):	Programistyczna cze¶æ bibliotek OpenIPMI
+Summary(pl.UTF-8):   Programistyczna czeÅ›Ä‡ bibliotek OpenIPMI
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description devel
 Development part of OpenIPMI libraries.
 
-%description devel -l pl
-Programistyczna cze¶æ bibliotek OpenIPMI.
+%description devel -l pl.UTF-8
+Programistyczna czeÅ›Ä‡ bibliotek OpenIPMI.
 
 %package static
 Summary:	Static OpenIPMI libraries
-Summary(pl):	Statyczne biblioteki OpenIPMI
+Summary(pl.UTF-8):   Statyczne biblioteki OpenIPMI
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static OpenIPMI Toolkit libraries.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Statyczne biblioteki OpenIPMI.
 
 %package -n perl-%{name}
 Summary:	Perl interface to OpenIPMI
-Summary(pl):	Perlowy interfejs do OpenIPMI
+Summary(pl.UTF-8):   Perlowy interfejs do OpenIPMI
 Group:		Development/Languages/Perl
 Requires:	%{name} = %{version}-%{release}
 
 %description -n perl-%{name}
 Perl interface to OpenIPMI.
 
-%description -n perl-%{name} -l pl
+%description -n perl-%{name} -l pl.UTF-8
 Perlowy interfejs do OpenIPMI.
 
 %package -n python-%{name}
 Summary:	Python interface to OpenIPMI
-Summary(pl):	Pythonowy interfejs do OpenIPMI
+Summary(pl.UTF-8):   Pythonowy interfejs do OpenIPMI
 Group:		Development/Languages/Python
 Requires:	%{name} = %{version}-%{release}
 %pyrequires_eq	python-libs
@@ -95,12 +95,12 @@ Requires:	%{name} = %{version}-%{release}
 %description -n python-%{name}
 Python interface to OpenIPMI.
 
-%description -n perl-%{name} -l pl
+%description -n perl-%{name} -l pl.UTF-8
 Pythonowy interfejs do OpenIPMI.
 
 %package gui
 Summary:	OpenIPMI GUI
-Summary(pl):	Graficzny interfejs u¿ytkownika do OpenIPMI
+Summary(pl.UTF-8):   Graficzny interfejs uÅ¼ytkownika do OpenIPMI
 Group:		X11/Applications
 Requires:	python-%{name} = %{version}-%{release}
 Requires:	python-tkinter
@@ -108,8 +108,8 @@ Requires:	python-tkinter
 %description gui
 OpenIPMI GUI.
 
-%description gui -l pl
-Graficzny interfejs u¿ytkownika do OpenIPMI.
+%description gui -l pl.UTF-8
+Graficzny interfejs uÅ¼ytkownika do OpenIPMI.
 
 %prep
 %setup -q
