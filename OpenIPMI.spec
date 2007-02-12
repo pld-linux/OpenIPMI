@@ -8,7 +8,7 @@
 %bcond_without	gui	# don't build tkinter-based GUI
 #
 Summary:	IPMI abstraction layer
-Summary(pl.UTF-8):   Warstwa abstrakcji IPMI
+Summary(pl.UTF-8):	Warstwa abstrakcji IPMI
 Name:		OpenIPMI
 Version:	2.0.10
 Release:	2
@@ -51,7 +51,7 @@ interfejsu inteligentnego zarządzania platformą)
 
 %package devel
 Summary:	Development part of OpenIPMI Toolkit libraries
-Summary(pl.UTF-8):   Programistyczna cześć bibliotek OpenIPMI
+Summary(pl.UTF-8):	Programistyczna cześć bibliotek OpenIPMI
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
@@ -63,7 +63,7 @@ Programistyczna cześć bibliotek OpenIPMI.
 
 %package static
 Summary:	Static OpenIPMI libraries
-Summary(pl.UTF-8):   Statyczne biblioteki OpenIPMI
+Summary(pl.UTF-8):	Statyczne biblioteki OpenIPMI
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
@@ -75,7 +75,7 @@ Statyczne biblioteki OpenIPMI.
 
 %package -n perl-%{name}
 Summary:	Perl interface to OpenIPMI
-Summary(pl.UTF-8):   Perlowy interfejs do OpenIPMI
+Summary(pl.UTF-8):	Perlowy interfejs do OpenIPMI
 Group:		Development/Languages/Perl
 Requires:	%{name} = %{version}-%{release}
 
@@ -87,7 +87,7 @@ Perlowy interfejs do OpenIPMI.
 
 %package -n python-%{name}
 Summary:	Python interface to OpenIPMI
-Summary(pl.UTF-8):   Pythonowy interfejs do OpenIPMI
+Summary(pl.UTF-8):	Pythonowy interfejs do OpenIPMI
 Group:		Development/Languages/Python
 Requires:	%{name} = %{version}-%{release}
 %pyrequires_eq	python-libs
@@ -100,7 +100,7 @@ Pythonowy interfejs do OpenIPMI.
 
 %package gui
 Summary:	OpenIPMI GUI
-Summary(pl.UTF-8):   Graficzny interfejs użytkownika do OpenIPMI
+Summary(pl.UTF-8):	Graficzny interfejs użytkownika do OpenIPMI
 Group:		X11/Applications
 Requires:	python-%{name} = %{version}-%{release}
 Requires:	python-tkinter
