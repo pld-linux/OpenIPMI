@@ -11,7 +11,7 @@ Summary:	IPMI abstraction layer
 Summary(pl.UTF-8):	Warstwa abstrakcji IPMI
 Name:		OpenIPMI
 Version:	2.0.10
-Release:	2
+Release:	3
 License:	LGPL (library), GPL (ipmicmd)
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/openipmi/%{name}-%{version}.tar.gz
