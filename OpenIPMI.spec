@@ -1,8 +1,3 @@
-# TODO
-# - bad BR (version mismatch):
-#  File "_mc_user.py", line 240, in ?
-#    class MCUsers(gui_treelist.TreeList): AttributeError: 'module' object has no attribute 'TreeList'
-#  make[4]: *** [_entity.pyc] Error 1
 #
 # Conditional build:
 %bcond_without	gui	# don't build tkinter-based GUI
@@ -10,12 +5,12 @@
 Summary:	IPMI abstraction layer
 Summary(pl.UTF-8):	Warstwa abstrakcji IPMI
 Name:		OpenIPMI
-Version:	2.0.10
-Release:	3
-License:	LGPL (library), GPL (ipmicmd)
+Version:	2.0.13
+Release:	1
+License:	LGPL v2+ (library), GPL v2+ (ipmicmd)
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/openipmi/%{name}-%{version}.tar.gz
-# Source0-md5:	8f5c200c5f25c33250567eaeb685e8c0
+# Source0-md5:	41835d4a2db684b9fca66e954c18c348
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-python.patch
 URL:		http://openipmi.sourceforge.net/
@@ -123,20 +118,20 @@ Graficzny interfejs użytkownika do OpenIPMI.
 %{__automake}
 CPPFLAGS="-I/usr/include/ncurses"
 %configure \
+	--with-pythoninstalllib=%{py_sitedir} \
 	--without-glib12 \
 	%{!?with_gui:--without-tkinter}
-%{__make} \
-	PYTHON_INSTALL_DIR=%{py_sitedir}
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install -j1 \
-	DESTDIR=$RPM_BUILD_ROOT \
-	PYTHON_INSTALL_DIR=%{py_sitedir}
+	DESTDIR=$RPM_BUILD_ROOT
 
-rm -f $RPM_BUILD_ROOT%{py_sitedir}/*.{py,la,a} \
-	$RPM_BUILD_ROOT%{py_sitedir}/openipmigui/*.py
+rm -f $RPM_BUILD_ROOT%{py_sitedir}/*.{la,a} \
+	$RPM_BUILD_ROOT%{py_sitescriptdir}/*.py \
+	$RPM_BUILD_ROOT%{py_sitescriptdir}/openipmigui/*.py
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -147,24 +142,40 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc ChangeLog FAQ README* TODO
-%attr(755,root,root) %{_bindir}/ipmi*
+%attr(755,root,root) %{_bindir}/ipmi_ui
+%attr(755,root,root) %{_bindir}/ipmicmd
+%attr(755,root,root) %{_bindir}/ipmilan
+%attr(755,root,root) %{_bindir}/ipmish
 %attr(755,root,root) %{_bindir}/openipmicmd
 %attr(755,root,root) %{_bindir}/openipmish
 %attr(755,root,root) %{_bindir}/rmcp_ping
 %attr(755,root,root) %{_bindir}/solterm
-%attr(755,root,root) %{_libdir}/lib*.so.*.*.*
-%{_mandir}/man[178]/*
+%attr(755,root,root) %{_libdir}/libIPMIlanserv.so.*.*.*
+%attr(755,root,root) %{_libdir}/libOpenIPMI*.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libIPMIlanserv.so.0
+%attr(755,root,root) %ghost %{_libdir}/libOpenIPMI*.so.[0-9]
+%{_mandir}/man1/ipmi_ui.1*
+%{_mandir}/man1/openipmicmd.1*
+%{_mandir}/man1/openipmish.1*
+%{_mandir}/man1/rmcp_ping.1*
+%{_mandir}/man1/solterm.1*
+%{_mandir}/man7/ipmi_cmdlang.7*
+%{_mandir}/man7/openipmi_conparms.7*
+%{_mandir}/man8/ipmilan.8*
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib*.so
-%{_libdir}/*.la
+%attr(755,root,root) %{_libdir}/libIPMIlanserv.so
+%attr(755,root,root) %{_libdir}/libOpenIPMI*.so
+%{_libdir}/libIPMIlanserv.la
+%{_libdir}/libOpenIPMI*.la
 %{_includedir}/%{name}
 %{_pkgconfigdir}/*.pc
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/lib*.a
+%{_libdir}/libIPMIlanserv.a
+%{_libdir}/libOpenIPMI*.a
 
 %files -n perl-%{name}
 %defattr(644,root,root,755)
@@ -175,13 +186,14 @@ rm -rf $RPM_BUILD_ROOT
 %files -n python-%{name}
 %defattr(644,root,root,755)
 %attr(755,root,root) %{py_sitedir}/_OpenIPMI.so
-%{py_sitedir}/OpenIPMI.py[co]
+%{py_sitescriptdir}/OpenIPMI.py[co]
 
 %if %{with gui}
 %files gui
 %defattr(644,root,root,755)
 %doc swig/python/openipmigui/TODO
 %attr(755,root,root) %{_bindir}/openipmigui
-%dir %{py_sitedir}/openipmigui
-%{py_sitedir}/openipmigui/*.py[co]
+%dir %{py_sitescriptdir}/openipmigui
+%{py_sitescriptdir}/openipmigui/*.py[co]
+%{_mandir}/man1/openipmigui.1*
 %endif
