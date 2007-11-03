@@ -1,6 +1,6 @@
---- OpenIPMI-2.0.10/swig/python/openipmigui/Makefile.am.orig	2006-11-08 18:09:10.000000000 +0100
-+++ OpenIPMI-2.0.10/swig/python/openipmigui/Makefile.am	2006-12-03 21:45:47.330986735 +0100
-@@ -35,7 +35,7 @@
+--- OpenIPMI-2.0.13/swig/python/openipmigui/Makefile.am.orig	2007-11-03 20:00:30.925230000 +0100
++++ OpenIPMI-2.0.13/swig/python/openipmigui/Makefile.am	2007-11-03 20:17:14.238405581 +0100
+@@ -35,12 +35,12 @@
  	done)
  	-rmdir "$(DESTDIR)$(PYTHON_INSTALL_DIR)/openipmigui"
  
@@ -8,39 +8,45 @@
 +PYPATH=$(top_builddir)/swig/python:$(top_builddir)/swig/python/.libs:$(srcdir)
  
  .py.pyc:
- 	LD_PRELOAD=$(OPENIPMI_SWIG_SO):$(top_builddir)/swig/python/_OpenIPMI.so PYTHONPATH=$(PYPATH) $(pythonprog) -c 'import $*'
---- OpenIPMI-2.0.10/swig/python/Makefile.am.orig	2006-11-14 17:22:41.000000000 +0100
-+++ OpenIPMI-2.0.10/swig/python/Makefile.am	2006-12-03 21:51:35.774843419 +0100
-@@ -5,46 +5,32 @@
+-	LD_PRELOAD=$(OPENIPMI_SWIG_SO):$(top_builddir)/swig/python/_OpenIPMI.so PYTHONPATH=$(PYPATH) $(pythonprog) -c 'import $*'
++	LD_PRELOAD=$(OPENIPMI_SWIG_SO):$(top_builddir)/swig/python/.libs/_OpenIPMI.so PYTHONPATH=$(PYPATH) $(pythonprog) -c 'import $*'
+ 
+ .py.pyo:
+-	LD_PRELOAD=$(OPENIPMI_SWIG_SO):$(top_builddir)/swig/python/_OpenIPMI.so PYTHONPATH=$(PYPATH) $(pythonprog) -O -c 'import $*'
++	LD_PRELOAD=$(OPENIPMI_SWIG_SO):$(top_builddir)/swig/python/.libs/_OpenIPMI.so PYTHONPATH=$(PYPATH) $(pythonprog) -O -c 'import $*'
+ 
+ CLEANFILES = $(PYC_FILES) $(PYO_FILES)
+--- OpenIPMI-2.0.13/swig/python/Makefile.am.orig	2007-10-16 18:10:53.000000000 +0200
++++ OpenIPMI-2.0.13/swig/python/Makefile.am	2007-11-03 20:15:34.520722993 +0100
+@@ -5,46 +5,33 @@ AM_CFLAGS = $(PYTHON_CFLAGS) \
  	    -I $(top_builddir) \
  	    -I $(top_builddir)/include \
  	    -I $(top_srcdir)/include \
 -	    -I $(top_srcdir)/swig/python
 +	    -I $(top_srcdir)/swig/python \
-+	    -Wall -DPYTHON_HAS_POSIX_THREADS=@PYTHON_HAS_POSIX_THREADS@ @DEFS@
++	    -Wall -DPYTHON_HAS_POSIX_THREADS=@PYTHON_HAS_POSIX_THREADS@
  
 -CC = @CC@ -Wall
 -CFLAGS = @CFLAGS@ -fPIC -DPYTHON_HAS_POSIX_THREADS=@PYTHON_HAS_POSIX_THREADS@
 -DEFS = @DEFS@
--
++pythonlibdir=$(PYTHON_INSTALL_LIB_DIR)
++PYPATH=$(top_builddir)/swig/python:$(top_builddir)/swig/python/.libs:$(srcdir)/openipmigui
+ 
 -COMPILE = $(CC) $(DEFS) $(AM_CFLAGS) $(CFLAGS)
--
++pythonlib_LTLIBRARIES = _OpenIPMI.la
+ 
 -all-local: _OpenIPMI.so
 -
 -OpenIPMI_SRC = OpenIPMI_wrap.c
 -OpenIPMI_OBJ = OpenIPMI_wrap.o
-+pythonlibdir=$(PYTHON_INSTALL_DIR)
-+pythonlib_LTLIBRARIES = _OpenIPMI.la
 +_OpenIPMI_la_SOURCES = OpenIPMI_wrap.c
 +_OpenIPMI_la_LDFLAGS = -module -avoid-version
-+  
 +_OpenIPMI_la_LIBADD = $(OPENIPMI_SWIG_LIBS)
  
  EXTRA_DIST = OpenIPMI_lang.i OpenIPMI.h openipmigui.py
  
 -_OpenIPMI.so: $(OpenIPMI_OBJ)
--	$(LIBTOOL) --mode=link $(CC) -shared -o $@ $^ $(OPENIPMI_SWIG_LIBS) \
--		-R/$(libdir)
+-	$(LIBTOOL) --mode=link $(CC) -shared -o $@ $^ $(OPENIPMI_SWIG_LIBS)
 -	rm _OpenIPMI.so
 -	mv .libs/_OpenIPMI.so .
 -	rm -rf .libs
@@ -49,33 +55,36 @@
 -	$(COMPILE) -c $<
 -
 -OpenIPMI.pyc: OpenIPMI.py _OpenIPMI.so
+-	-$(pythonprog) -c 'import OpenIPMI.py'
 +OpenIPMI.pyc: OpenIPMI.py _OpenIPMI.la
- 	-$(pythonprog) -c 'import OpenIPMI.py'
++	-PYTHONPATH=$(PYPATH) $(pythonprog) -c 'import OpenIPMI.py'
  
 -OpenIPMI.pyo: OpenIPMI.py _OpenIPMI.so
+-	-$(pythonprog) -O -c 'import OpenIPMI.py'
 +OpenIPMI.pyo: OpenIPMI.py _OpenIPMI.la
- 	-$(pythonprog) -O -c 'import OpenIPMI.py'
++	-PYTHONPATH=$(PYPATH) $(pythonprog) -O -c 'import OpenIPMI.py'
  
- OpenIPMI_wrap.c: $(top_srcdir)/swig/OpenIPMI.i OpenIPMI_lang.i
+-OpenIPMI_wrap.c: $(top_srcdir)/swig/OpenIPMI.i OpenIPMI_lang.i
++OpenIPMI_wrap.c OpenIPMI.py: $(top_srcdir)/swig/OpenIPMI.i OpenIPMI_lang.i
  	$(SWIG) $(DEFS) -python -o $@ -I$(top_srcdir)/swig/python $<
  
 -CLEANFILES = $(OpenIPMI_OBJ) _OpenIPMI.so OpenIPMI_wrap.c \
-+CLEANFILES = $(OpenIPMI_OBJ) _OpenIPMI.la OpenIPMI_wrap.c \
- 	OpenIPMI.py OpenIPMI.pyo OpenIPMI.pyc
+-	OpenIPMI.py OpenIPMI.pyo OpenIPMI.pyc
++CLEANFILES = OpenIPMI_wrap.c OpenIPMI.py OpenIPMI.pyo OpenIPMI.pyc
  
 -install-exec-local: _OpenIPMI.so OpenIPMI.py OpenIPMI.pyc OpenIPMI.pyo
 +install-exec-local: _OpenIPMI.la OpenIPMI.py OpenIPMI.pyc OpenIPMI.pyo
  	$(INSTALL) -d $(DESTDIR)$(PYTHON_INSTALL_DIR)
--	$(LIBTOOL) --mode=install $(INSTALL_PROGRAM) _OpenIPMI.so "$(DESTDIR)$(PYTHON_INSTALL_DIR)"
- 	$(INSTALL_PROGRAM) OpenIPMI.py "$(DESTDIR)$(PYTHON_INSTALL_DIR)"
- 	$(INSTALL_PROGRAM) OpenIPMI.pyc "$(DESTDIR)$(PYTHON_INSTALL_DIR)"
- 	$(INSTALL_PROGRAM) OpenIPMI.pyo "$(DESTDIR)$(PYTHON_INSTALL_DIR)"
-@@ -60,7 +46,7 @@
+-	$(INSTALL) -d $(DESTDIR)$(PYTHON_INSTALL_LIB_DIR)
+-	$(LIBTOOL) --mode=install $(INSTALL_PROGRAM) _OpenIPMI.so "$(DESTDIR)$(PYTHON_INSTALL_LIB_DIR)/"
+ 	$(INSTALL_DATA) OpenIPMI.py "$(DESTDIR)$(PYTHON_INSTALL_DIR)"
+ 	$(INSTALL_DATA) OpenIPMI.pyc "$(DESTDIR)$(PYTHON_INSTALL_DIR)"
+ 	$(INSTALL_DATA) OpenIPMI.pyo "$(DESTDIR)$(PYTHON_INSTALL_DIR)"
+@@ -60,7 +47,5 @@ uninstall-local:
  	rm -f "$(DESTDIR)$(PYTHON_INSTALL_DIR)/OpenIPMI.pyo"
  	rm -f "$(DESTDIR)$(bindir)/openipmigui"
  
 -PYPATH=$(top_builddir)/swig/python:$(srcdir)/openipmigui
-+PYPATH=$(top_builddir)/swig/python:$(top_builddir)/swig/python/.libs:$(srcdir)/openipmigui
- 
+-
  rungui:
- 	LD_LIBRARY_PATH=$(top_builddir)/glib/.libs LD_PRELOAD=$(OPENIPMI_SWIG_SO):$(top_builddir)/swig/python/_OpenIPMI.so PYTHONPATH=$(PYPATH) $(pythonprog) $(top_srcdir)/swig/python/openipmigui.py
+ 	LD_LIBRARY_PATH=$(top_builddir)/glib/.libs LD_PRELOAD=$(OPENIPMI_SWIG_SO) PYTHONPATH=$(PYPATH) $(pythonprog) $(top_srcdir)/swig/python/openipmigui.py
