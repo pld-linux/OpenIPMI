@@ -14,6 +14,7 @@ Source0:	http://dl.sourceforge.net/openipmi/%{name}-%{version}.tar.gz
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-python.patch
 Patch2:		%{name}-lt.patch
+Patch3:		%{name}-popt.patch
 URL:		http://openipmi.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -112,6 +113,7 @@ Graficzny interfejs użytkownika do OpenIPMI.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 %{__libtoolize}
