@@ -5,14 +5,15 @@
 Summary:	IPMI abstraction layer
 Summary(pl.UTF-8):	Warstwa abstrakcji IPMI
 Name:		OpenIPMI
-Version:	2.0.13
-Release:	2
+Version:	2.0.14
+Release:	1
 License:	LGPL v2+ (library), GPL v2+ (ipmicmd)
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/openipmi/%{name}-%{version}.tar.gz
-# Source0-md5:	41835d4a2db684b9fca66e954c18c348
+# Source0-md5:	f766680bb237ca2f837c005efba54efa
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-python.patch
+Patch2:		%{name}-lt.patch
 URL:		http://openipmi.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -110,6 +111,7 @@ Graficzny interfejs użytkownika do OpenIPMI.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__libtoolize}
@@ -151,9 +153,23 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/rmcp_ping
 %attr(755,root,root) %{_bindir}/solterm
 %attr(755,root,root) %{_libdir}/libIPMIlanserv.so.*.*.*
-%attr(755,root,root) %{_libdir}/libOpenIPMI*.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libIPMIlanserv.so.0
-%attr(755,root,root) %ghost %{_libdir}/libOpenIPMI*.so.[0-9]
+%attr(755,root,root) %{_libdir}/libOpenIPMI.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libOpenIPMI.so.0
+%attr(755,root,root) %{_libdir}/libOpenIPMIcmdlang.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libOpenIPMIcmdlang.so.0
+%attr(755,root,root) %{_libdir}/libOpenIPMIglib.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libOpenIPMIglib.so.0
+%attr(755,root,root) %{_libdir}/libOpenIPMIposix.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libOpenIPMIposix.so.0
+%attr(755,root,root) %{_libdir}/libOpenIPMIpthread.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libOpenIPMIpthread.so.0
+%attr(755,root,root) %{_libdir}/libOpenIPMItcl.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libOpenIPMItcl.so.0
+%attr(755,root,root) %{_libdir}/libOpenIPMIui.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libOpenIPMIui.so.1
+%attr(755,root,root) %{_libdir}/libOpenIPMIutils.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libOpenIPMIutils.so.0
 %{_mandir}/man1/ipmi_ui.1*
 %{_mandir}/man1/openipmicmd.1*
 %{_mandir}/man1/openipmish.1*
@@ -166,16 +182,44 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libIPMIlanserv.so
-%attr(755,root,root) %{_libdir}/libOpenIPMI*.so
+%attr(755,root,root) %{_libdir}/libOpenIPMI.so
+%attr(755,root,root) %{_libdir}/libOpenIPMIcmdlang.so
+%attr(755,root,root) %{_libdir}/libOpenIPMIglib.so
+%attr(755,root,root) %{_libdir}/libOpenIPMIposix.so
+%attr(755,root,root) %{_libdir}/libOpenIPMIpthread.so
+%attr(755,root,root) %{_libdir}/libOpenIPMItcl.so
+%attr(755,root,root) %{_libdir}/libOpenIPMIui.so
+%attr(755,root,root) %{_libdir}/libOpenIPMIutils.so
 %{_libdir}/libIPMIlanserv.la
-%{_libdir}/libOpenIPMI*.la
+%{_libdir}/libOpenIPMI.la
+%{_libdir}/libOpenIPMIcmdlang.la
+%{_libdir}/libOpenIPMIglib.la
+%{_libdir}/libOpenIPMIposix.la
+%{_libdir}/libOpenIPMIpthread.la
+%{_libdir}/libOpenIPMItcl.la
+%{_libdir}/libOpenIPMIui.la
+%{_libdir}/libOpenIPMIutils.la
 %{_includedir}/%{name}
-%{_pkgconfigdir}/*.pc
+%{_pkgconfigdir}/OpenIPMI.pc
+%{_pkgconfigdir}/OpenIPMIcmdlang.pc
+%{_pkgconfigdir}/OpenIPMIglib.pc
+%{_pkgconfigdir}/OpenIPMIposix.pc
+%{_pkgconfigdir}/OpenIPMIpthread.pc
+%{_pkgconfigdir}/OpenIPMItcl.pc
+%{_pkgconfigdir}/OpenIPMIui.pc
+%{_pkgconfigdir}/OpenIPMIutils.pc
 
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libIPMIlanserv.a
-%{_libdir}/libOpenIPMI*.a
+%{_libdir}/libOpenIPMI.a
+%{_libdir}/libOpenIPMIcmdlang.a
+%{_libdir}/libOpenIPMIglib.a
+%{_libdir}/libOpenIPMIposix.a
+%{_libdir}/libOpenIPMIpthread.a
+%{_libdir}/libOpenIPMItcl.a
+%{_libdir}/libOpenIPMIui.a
+%{_libdir}/libOpenIPMIutils.a
 
 %files -n perl-%{name}
 %defattr(644,root,root,755)
