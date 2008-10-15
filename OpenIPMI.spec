@@ -125,7 +125,7 @@ CPPFLAGS="-I/usr/include/ncurses"
 	--with-pythoninstalllib=%{py_sitedir} \
 	--without-glib12 \
 	%{!?with_gui:--without-tkinter}
-%{__make}
+%{__make} -j1
 
 %install
 rm -rf $RPM_BUILD_ROOT
