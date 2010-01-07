@@ -5,12 +5,12 @@
 Summary:	IPMI abstraction layer
 Summary(pl.UTF-8):	Warstwa abstrakcji IPMI
 Name:		OpenIPMI
-Version:	2.0.14
-Release:	3
+Version:	2.0.16
+Release:	1
 License:	LGPL v2+ (library), GPL v2+ (ipmicmd)
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/openipmi/%{name}-%{version}.tar.gz
-# Source0-md5:	f766680bb237ca2f837c005efba54efa
+# Source0-md5:	0ab2b336b169ff41c258383b032c5681
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-python.patch
 Patch2:		%{name}-lt.patch
@@ -147,7 +147,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc ChangeLog FAQ README* TODO
+%doc CONFIGURING_FOR_LAN ChangeLog FAQ README* TODO
 %attr(755,root,root) %{_bindir}/ipmi_ui
 %attr(755,root,root) %{_bindir}/ipmicmd
 %attr(755,root,root) %{_bindir}/ipmilan
