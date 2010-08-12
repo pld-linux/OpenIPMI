@@ -5,17 +5,15 @@
 Summary:	IPMI abstraction layer
 Summary(pl.UTF-8):	Warstwa abstrakcji IPMI
 Name:		OpenIPMI
-Version:	2.0.16
-Release:	4
+Version:	2.0.18
+Release:	1
 License:	LGPL v2+ (library), GPL v2+ (ipmicmd)
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/openipmi/%{name}-%{version}.tar.gz
-# Source0-md5:	0ab2b336b169ff41c258383b032c5681
+# Source0-md5:	8392539200fbda670503770292dfbb8f
 Patch0:		%{name}-link.patch
-Patch1:		%{name}-python.patch
-Patch2:		%{name}-lt.patch
-Patch3:		%{name}-popt.patch
-Patch4:		%{name}-pthread.patch
+Patch1:		%{name}-popt.patch
+Patch2:		%{name}-pthread.patch
 URL:		http://openipmi.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -114,8 +112,6 @@ Graficzny interfejs użytkownika do OpenIPMI.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
-%patch4 -p1
 
 %build
 %{__libtoolize}
