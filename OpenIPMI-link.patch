@@ -36,10 +36,10 @@
     *-sun-*) AC_DEFINE([_SUNOS], [], [Solaris's term.h does horrid things.]);;
  esac
  
--AC_CHECK_LIB(curses, tgetent,,
-+AC_CHECK_LIB(tinfo, tgetent,,
-+[AC_CHECK_LIB(curses, tgetent,,
-    [AC_CHECK_LIB(ncurses, tgetent,,
+-AC_CHECK_LIB(curses, tgetent, TERM_LIBS=-lcurses,
++AC_CHECK_LIB(tinfo, tgetent, TERM_LIBS=-ltinfo,
++[AC_CHECK_LIB(curses, tgetent, TERM_LIBS=-lcurses,
+    [AC_CHECK_LIB(ncurses, tgetent, TERM_LIBS=-lncurses,
 -      [AC_MSG_ERROR([libtermcap, libcurses or libncurses are required!])] )] )
 +      [AC_MSG_ERROR([libtermcap, libcurses or libncurses are required!])] )] )])
  
