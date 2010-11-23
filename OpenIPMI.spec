@@ -35,7 +35,7 @@ BuildRequires:	swig-python >= 1.3.25
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # needs verification if really neccessary
-%define		skip_post_check_so	"(libOpenIPMIcmdlang.so.*|libOpenIPMIui.so.*)"
+%define		skip_post_check_so	'libOpenIPMI(cmdlang|ui)\.so.*'
 
 %description
 OpenIPMI project aims to develop an open code base to allow access to
