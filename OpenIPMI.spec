@@ -6,7 +6,7 @@ Summary:	IPMI abstraction layer
 Summary(pl.UTF-8):	Warstwa abstrakcji IPMI
 Name:		OpenIPMI
 Version:	2.0.18
-Release:	6
+Release:	7
 License:	LGPL v2+ (library), GPL v2+ (ipmicmd)
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/openipmi/%{name}-%{version}.tar.gz
@@ -35,7 +35,7 @@ BuildRequires:	swig-python >= 1.3.25
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # needs verification if really neccessary
-%define		skip_post_check_so	'libOpenIPMI(cmdlang|ui)\.so.*'
+%define		skip_post_check_so	libOpenIPMI(cmdlang|ui)\.so.*
 
 %description
 OpenIPMI project aims to develop an open code base to allow access to
