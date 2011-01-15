@@ -9,7 +9,7 @@ Version:	2.0.18
 Release:	8
 License:	LGPL v2+ (library), GPL v2+ (ipmicmd)
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/openipmi/%{name}-%{version}.tar.gz
+Source0:	http://downloads.sourceforge.net/openipmi/%{name}-%{version}.tar.gz
 # Source0-md5:	8392539200fbda670503770292dfbb8f
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-popt.patch
@@ -23,6 +23,7 @@ BuildRequires:	glib2-devel >= 2.0
 BuildRequires:	libtool >= 1:1.4.2-9
 BuildRequires:	ncurses-devel
 BuildRequires:	net-snmp-devel
+BuildRequires:	openssl-devel
 BuildRequires:	perl-devel
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
@@ -34,8 +35,8 @@ BuildRequires:	swig-perl >= 1.3.25
 BuildRequires:	swig-python >= 1.3.25
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-# needs verification if really neccessary
-%define		skip_post_check_so	libOpenIPMIcmdlang\.so\..* libOpenIPMIui\.so\..*
+# refers to global ipmi_cmdlang_{global_err,report_event} symbols
+%define		skip_post_check_so	libOpenIPMIcmdlang\.so\..*
 
 %description
 OpenIPMI project aims to develop an open code base to allow access to
@@ -134,7 +135,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install -j1 \
 	DESTDIR=$RPM_BUILD_ROOT
 
-rm -f $RPM_BUILD_ROOT%{py_sitedir}/*.{la,a} \
+%{__rm} $RPM_BUILD_ROOT%{py_sitedir}/*.{la,a} \
 	$RPM_BUILD_ROOT%{py_sitescriptdir}/*.py \
 	$RPM_BUILD_ROOT%{py_sitescriptdir}/openipmigui/*.py
 
