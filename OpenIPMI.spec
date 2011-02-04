@@ -95,7 +95,7 @@ Requires:	%{name} = %{version}-%{release}
 %description -n python-%{name}
 Python interface to OpenIPMI.
 
-%description -n perl-%{name} -l pl.UTF-8
+%description -n python-%{name} -l pl.UTF-8
 Pythonowy interfejs do OpenIPMI.
 
 %package gui
