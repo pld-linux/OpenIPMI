@@ -137,7 +137,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__rm} $RPM_BUILD_ROOT%{py_sitedir}/*.{la,a} \
 	$RPM_BUILD_ROOT%{py_sitescriptdir}/*.py \
-	$RPM_BUILD_ROOT%{py_sitescriptdir}/openipmigui/*.py
+	%{?with_gui:$RPM_BUILD_ROOT%{py_sitescriptdir}/openipmigui/*.py}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
