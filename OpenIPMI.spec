@@ -36,7 +36,8 @@ BuildRequires:	swig-python >= 1.3.25
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # refers to global ipmi_cmdlang_{global_err,report_event} symbols
-%define		skip_post_check_so	libOpenIPMIcmdlang\.so\..*
+# and ncurses nodelay,keypad,meta (now in libtinfo, not found somehow)
+%define		skip_post_check_so	libOpenIPMI(cmdlang|ui)\.so\..*
 
 %description
 OpenIPMI project aims to develop an open code base to allow access to
