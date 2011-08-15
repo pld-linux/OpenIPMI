@@ -6,7 +6,7 @@ Summary:	IPMI abstraction layer
 Summary(pl.UTF-8):	Warstwa abstrakcji IPMI
 Name:		OpenIPMI
 Version:	2.0.18
-Release:	8.1
+Release:	9
 License:	LGPL v2+ (library), GPL v2+ (ipmicmd)
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/openipmi/%{name}-%{version}.tar.gz
@@ -14,6 +14,7 @@ Source0:	http://downloads.sourceforge.net/openipmi/%{name}-%{version}.tar.gz
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-popt.patch
 Patch2:		%{name}-pthread.patch
+Patch3:		avoid-echo-e.patch
 URL:		http://openipmi.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -36,8 +37,7 @@ BuildRequires:	swig-python >= 1.3.25
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # refers to global ipmi_cmdlang_{global_err,report_event} symbols
-# and ncurses nodelay,keypad,meta (now in libtinfo, not found somehow)
-%define		skip_post_check_so	libOpenIPMI(cmdlang|ui)\.so\..*
+%define		skip_post_check_so	libOpenIPMIcmdlang\.so\..*
 
 %description
 OpenIPMI project aims to develop an open code base to allow access to
@@ -117,6 +117,7 @@ Graficzny interfejs użytkownika do OpenIPMI.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 %{__libtoolize}
