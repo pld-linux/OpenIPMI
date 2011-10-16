@@ -9,18 +9,19 @@
  libOpenIPMIui_la_LDFLAGS = -version-info $(LD_VERSION) \
  	-Wl,-Map -Wl,libOpenIPMIui.map
  
---- OpenIPMI-2.0.7/configure.in.orig	2006-06-08 21:50:40.000000000 +0200
-+++ OpenIPMI-2.0.7/configure.in	2006-08-22 23:54:55.736467750 +0200
-@@ -752,9 +752,10 @@
+--- OpenIPMI-2.0.19/configure.in.orig	2011-10-12 17:34:43.000000000 +0200
++++ OpenIPMI-2.0.19/configure.in	2011-10-16 17:04:08.856787617 +0200
+@@ -853,10 +853,13 @@
     *-sun-*) AC_DEFINE([_SUNOS], [], [Solaris's term.h does horrid things.]);;
  esac
  
--AC_CHECK_LIB(curses, tgetent, TERM_LIBS=-lcurses,
-+AC_CHECK_LIB(tinfo, tgetent, TERM_LIBS=-ltinfo,
-+[AC_CHECK_LIB(curses, tgetent, TERM_LIBS=-lcurses,
-    [AC_CHECK_LIB(ncurses, tgetent, TERM_LIBS=-lncurses,
--      [AC_MSG_ERROR([libtermcap, libcurses or libncurses are required!])] )] )
-+      [AC_MSG_ERROR([libtermcap, libcurses or libncurses are required!])] )] )])
++AC_CHECK_LIB(tinfow, tgetent, TERM_LIBS=-ltinfow,[
++AC_CHECK_LIB(tinfo, tgetent, TERM_LIBS=-ltinfo,[
+ AC_CHECK_LIB(curses, tgetent, TERM_LIBS=-lcurses,
+    [AC_CHECK_LIB(ncursesw, tgetent, TERM_LIBS=-lncursesw,
+     [AC_CHECK_LIB(ncurses, tgetent, TERM_LIBS=-lncurses,
+       [AC_MSG_ERROR([libtermcap, libcurses or libncurses are required!])])] )] )
++])])
  
  # Checks for header files.
  AC_FUNC_ALLOCA
