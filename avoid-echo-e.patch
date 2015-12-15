@@ -1,5 +1,5 @@
---- OpenIPMI-2.0.18/configure.in.wiget	2011-08-15 14:56:33.536069856 +0200
-+++ OpenIPMI-2.0.18/configure.in	2011-08-15 15:05:50.412874577 +0200
+--- OpenIPMI-2.0.18/configure.ac.wiget	2011-08-15 14:56:33.536069856 +0200
++++ OpenIPMI-2.0.18/configure.ac	2011-08-15 15:05:50.412874577 +0200
 @@ -647,7 +647,13 @@ else
  fi
  if test "x$pythonprog" != "x"; then

@@ -5,18 +5,17 @@
 Summary:	IPMI abstraction layer
 Summary(pl.UTF-8):	Warstwa abstrakcji IPMI
 Name:		OpenIPMI
-Version:	2.0.19
-Release:	11
+Version:	2.0.21
+Release:	1
 License:	LGPL v2+ (library), GPL v2+ (ipmicmd)
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/openipmi/%{name}-%{version}.tar.gz
-# Source0-md5:	e96e68b972d4b376f239d32cd3629328
+# Source0-md5:	dc0b42ae40b3f1d0db2a94b75b95fae1
 Patch0:		%{name}-link.patch
-Patch1:		%{name}-popt.patch
-Patch2:		%{name}-pthread.patch
-Patch3:		avoid-echo-e.patch
+Patch1:		%{name}-pthread.patch
+Patch2:		avoid-echo-e.patch
 URL:		http://openipmi.sourceforge.net/
-BuildRequires:	autoconf
+BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	gcc >= 5:3.2
 BuildRequires:	gdbm-devel
@@ -36,8 +35,9 @@ BuildRequires:	swig-perl >= 1.3.25
 BuildRequires:	swig-python >= 1.3.25
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-# refers to global ipmi_cmdlang_{global_err,report_event} symbols
-%define		skip_post_check_so	libOpenIPMIcmdlang\.so\..*
+# libOpenIPMIcmdlang refers to global ipmi_cmdlang_{global_err,report_event} symbols
+# libIPMIlanserv uses symbols from binaries (ipmilan, ipmi_sim)
+%define		skip_post_check_so	libOpenIPMIcmdlang\.so\..* libIPMIlanserv\.so\..*
 
 %description
 OpenIPMI project aims to develop an open code base to allow access to
@@ -117,14 +117,14 @@ Graficzny interfejs użytkownika do OpenIPMI.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
 %build
 %{__libtoolize}
-%{__aclocal}
+%{__aclocal} -I m4
 %{__autoconf}
+%{__autoheader}
 %{__automake}
-CPPFLAGS="-I/usr/include/ncurses"
+CPPFLAGS="%{rpmcppflags} -I/usr/include/ncurses"
 %configure \
 	--with-pythoninstalllib=%{py_sitedir} \
 	--without-glib12 \
@@ -150,6 +150,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc CONFIGURING_FOR_LAN ChangeLog FAQ README* TODO
+%attr(755,root,root) %{_bindir}/ipmi_sim
 %attr(755,root,root) %{_bindir}/ipmi_ui
 %attr(755,root,root) %{_bindir}/ipmicmd
 %attr(755,root,root) %{_bindir}/ipmilan
@@ -157,6 +158,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/openipmicmd
 %attr(755,root,root) %{_bindir}/openipmish
 %attr(755,root,root) %{_bindir}/rmcp_ping
+%attr(755,root,root) %{_bindir}/sdrcomp
 %attr(755,root,root) %{_bindir}/solterm
 %attr(755,root,root) %{_libdir}/libIPMIlanserv.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libIPMIlanserv.so.0
@@ -176,11 +178,17 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %ghost %{_libdir}/libOpenIPMIui.so.1
 %attr(755,root,root) %{_libdir}/libOpenIPMIutils.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libOpenIPMIutils.so.0
+%dir %{_sysconfdir}/ipmi
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ipmi/ipmisim1.emu
+%attr(600,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ipmi/lan.conf
+%{_mandir}/man1/ipmi_sim.1*
 %{_mandir}/man1/ipmi_ui.1*
 %{_mandir}/man1/openipmicmd.1*
 %{_mandir}/man1/openipmish.1*
 %{_mandir}/man1/rmcp_ping.1*
 %{_mandir}/man1/solterm.1*
+%{_mandir}/man5/ipmi_lan.5*
+%{_mandir}/man5/ipmi_sim_cmd.5*
 %{_mandir}/man7/ipmi_cmdlang.7*
 %{_mandir}/man7/openipmi_conparms.7*
 %{_mandir}/man8/ipmilan.8*
