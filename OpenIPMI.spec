@@ -6,7 +6,7 @@ Summary:	IPMI abstraction layer
 Summary(pl.UTF-8):	Warstwa abstrakcji IPMI
 Name:		OpenIPMI
 Version:	2.0.21
-Release:	2
+Release:	3
 License:	LGPL v2+ (library), GPL v2+ (ipmicmd)
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/openipmi/%{name}-%{version}.tar.gz
@@ -128,6 +128,7 @@ Graficzny interfejs użytkownika do OpenIPMI.
 %{__automake}
 CPPFLAGS="%{rpmcppflags} -I/usr/include/ncurses"
 %configure \
+	--with-pythoninstall=%{py_sitescriptdir} \
 	--with-pythoninstalllib=%{py_sitedir} \
 	--without-glib12 \
 	%{!?with_gui:--without-tkinter}
