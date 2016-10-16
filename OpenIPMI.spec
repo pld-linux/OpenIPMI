@@ -5,16 +5,16 @@
 Summary:	IPMI abstraction layer
 Summary(pl.UTF-8):	Warstwa abstrakcji IPMI
 Name:		OpenIPMI
-Version:	2.0.21
-Release:	5
+Version:	2.0.22
+Release:	1
 License:	LGPL v2+ (library), GPL v2+ (ipmicmd)
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/openipmi/%{name}-%{version}.tar.gz
-# Source0-md5:	dc0b42ae40b3f1d0db2a94b75b95fae1
+# Source0-md5:	9a4e1f6bb073379c494839201ea10aee
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-pthread.patch
 Patch2:		avoid-echo-e.patch
-Patch3:		%{name}-ac.patch
+Patch3:		%{name}-missing.patch
 URL:		http://openipmi.sourceforge.net/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -158,6 +158,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/ipmicmd
 %attr(755,root,root) %{_bindir}/ipmilan
 %attr(755,root,root) %{_bindir}/ipmish
+%attr(755,root,root) %{_bindir}/openipmi_eventd
 %attr(755,root,root) %{_bindir}/openipmicmd
 %attr(755,root,root) %{_bindir}/openipmish
 %attr(755,root,root) %{_bindir}/rmcp_ping
@@ -186,6 +187,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(600,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ipmi/lan.conf
 %{_mandir}/man1/ipmi_sim.1*
 %{_mandir}/man1/ipmi_ui.1*
+%{_mandir}/man1/openipmi_eventd.1*
 %{_mandir}/man1/openipmicmd.1*
 %{_mandir}/man1/openipmish.1*
 %{_mandir}/man1/rmcp_ping.1*
