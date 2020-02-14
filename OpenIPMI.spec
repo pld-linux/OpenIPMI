@@ -1,3 +1,4 @@
+# TODO: python3 module
 #
 # Conditional build:
 %bcond_without	gui	# don't build tkinter-based GUI
@@ -5,13 +6,14 @@
 Summary:	IPMI abstraction layer
 Summary(pl.UTF-8):	Warstwa abstrakcji IPMI
 Name:		OpenIPMI
-Version:	2.0.25
-Release:	5
+Version:	2.0.28
+Release:	1
 License:	LGPL v2+ (library), GPL v2+ (ipmicmd)
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/openipmi/%{name}-%{version}.tar.gz
-# Source0-md5:	1461ac4d78fc516646fd0a6e605a8b05
+# Source0-md5:	ba37f08e306062ec73c7ed2a2bd4d5f4
 Patch0:		%{name}-link.patch
+Patch1:		%{name}-tcl.patch
 URL:		http://openipmi.sourceforge.net/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -113,6 +115,7 @@ Graficzny interfejs użytkownika do OpenIPMI.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__libtoolize}
@@ -125,7 +128,7 @@ CPPFLAGS="%{rpmcppflags} -I/usr/include/ncurses"
 	--with-pythoninstall=%{py_sitescriptdir} \
 	--with-pythoninstalllib=%{py_sitedir} \
 	--without-glib12 \
-	%{!?with_gui:--without-tkinter}
+	--with-tkinter%{!?with_gui:=no}
 %{__make} %{?with_gui:-j1}
 
 %install
@@ -133,6 +136,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install -j1 \
 	DESTDIR=$RPM_BUILD_ROOT
+
+%py_comp $RPM_BUILD_ROOT%{py_sitescriptdir}
+%py_ocomp $RPM_BUILD_ROOT%{py_sitescriptdir}
 
 %{__rm} $RPM_BUILD_ROOT%{py_sitedir}/*.{la,a} \
 	$RPM_BUILD_ROOT%{py_sitescriptdir}/*.py \
@@ -212,7 +218,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libOpenIPMItcl.la
 %{_libdir}/libOpenIPMIui.la
 %{_libdir}/libOpenIPMIutils.la
-%{_includedir}/%{name}
+%{_includedir}/OpenIPMI
 %{_pkgconfigdir}/OpenIPMI.pc
 %{_pkgconfigdir}/OpenIPMIcmdlang.pc
 %{_pkgconfigdir}/OpenIPMIglib.pc
