@@ -29,6 +29,7 @@ BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
 BuildRequires:	python-devel
 %{?with_gui:BuildRequires:	python-tkinter}
+BuildRequires:	sed >= 4.0
 BuildRequires:	tcl-devel
 BuildRequires:	rpm-pythonprov
 BuildRequires:	swig-perl >= 1.3.25
@@ -116,6 +117,8 @@ Graficzny interfejs użytkownika do OpenIPMI.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+
+%{__sed} -i -e '1s,/usr/bin/env python,%{__python},' swig/python/openipmigui.py
 
 %build
 %{__libtoolize}
