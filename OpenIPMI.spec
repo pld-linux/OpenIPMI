@@ -102,8 +102,8 @@ Pythonowy interfejs do OpenIPMI.
 Summary:	OpenIPMI GUI
 Summary(pl.UTF-8):	Graficzny interfejs użytkownika do OpenIPMI
 Group:		X11/Applications
-Requires:	python-%{name} = %{version}-%{release}
-Requires:	python-tkinter
+Requires:	python3-%{name} = %{version}-%{release}
+Requires:	python3-tkinter
 
 %description gui
 OpenIPMI GUI.
