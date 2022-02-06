@@ -1,4 +1,3 @@
-# TODO: python3 module
 #
 # Conditional build:
 %bcond_without	gui	# don't build tkinter-based GUI
@@ -6,14 +5,13 @@
 Summary:	IPMI abstraction layer
 Summary(pl.UTF-8):	Warstwa abstrakcji IPMI
 Name:		OpenIPMI
-Version:	2.0.29
-Release:	4
+Version:	2.0.32
+Release:	1
 License:	LGPL v2+ (library), GPL v2+ (ipmicmd)
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/openipmi/%{name}-%{version}.tar.gz
-# Source0-md5:	46b452e95d69c92e4172b3673ed88d52
-Patch0:		%{name}-link.patch
-Patch1:		%{name}-tcl.patch
+# Source0-md5:	532404c9df7d0e8bde975b95b9e6775b
+Patch0:		%{name}-tcl.patch
 URL:		http://openipmi.sourceforge.net/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -27,13 +25,13 @@ BuildRequires:	openssl-devel
 BuildRequires:	perl-devel
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
-BuildRequires:	python-devel
-%{?with_gui:BuildRequires:	python-tkinter}
+BuildRequires:	python3-devel >= 1:3.2
+%{?with_gui:BuildRequires:	python3-tkinter}
 BuildRequires:	sed >= 4.0
 BuildRequires:	tcl-devel
 BuildRequires:	rpm-pythonprov
 BuildRequires:	swig-perl >= 1.3.25
-BuildRequires:	swig-python >= 1.3.25
+BuildRequires:	swig-python >= 2.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # libOpenIPMIcmdlang refers to global ipmi_cmdlang_{global_err,report_event} symbols
@@ -87,17 +85,17 @@ Perl interface to OpenIPMI.
 %description -n perl-%{name} -l pl.UTF-8
 Perlowy interfejs do OpenIPMI.
 
-%package -n python-%{name}
+%package -n python3-%{name}
 Summary:	Python interface to OpenIPMI
 Summary(pl.UTF-8):	Pythonowy interfejs do OpenIPMI
 Group:		Development/Languages/Python
 Requires:	%{name} = %{version}-%{release}
-%pyrequires_eq	python-libs
+Obsoletes:	python-OpenIPMI < 2.0.32
 
-%description -n python-%{name}
+%description -n python3-%{name}
 Python interface to OpenIPMI.
 
-%description -n python-%{name} -l pl.UTF-8
+%description -n python3-%{name} -l pl.UTF-8
 Pythonowy interfejs do OpenIPMI.
 
 %package gui
@@ -116,9 +114,8 @@ Graficzny interfejs użytkownika do OpenIPMI.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
-%{__sed} -i -e '1s,/usr/bin/env python,%{__python},' swig/python/openipmigui.py
+%{__sed} -i -e '1s,/usr/bin/env python$,%{__python3},' swig/python/openipmigui.py
 
 %build
 %{__libtoolize}
@@ -128,8 +125,9 @@ Graficzny interfejs użytkownika do OpenIPMI.
 %{__automake}
 CPPFLAGS="%{rpmcppflags} -I/usr/include/ncurses"
 %configure \
-	--with-pythoninstall=%{py_sitescriptdir} \
-	--with-pythoninstalllib=%{py_sitedir} \
+	PYTHON=%{__python3} \
+	--with-pythoninstall=%{py3_sitescriptdir} \
+	--with-pythoninstalllib=%{py3_sitedir} \
 	--without-glib12 \
 	--with-tkinter%{!?with_gui:=no}
 %{__make} %{?with_gui:-j1}
@@ -140,12 +138,10 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install -j1 \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%py_comp $RPM_BUILD_ROOT%{py_sitescriptdir}
-%py_ocomp $RPM_BUILD_ROOT%{py_sitescriptdir}
+%py3_comp $RPM_BUILD_ROOT%{py3_sitescriptdir}
+%py3_ocomp $RPM_BUILD_ROOT%{py3_sitescriptdir}
 
-%{__rm} $RPM_BUILD_ROOT%{py_sitedir}/*.{la,a} \
-	$RPM_BUILD_ROOT%{py_sitescriptdir}/*.py \
-	%{?with_gui:$RPM_BUILD_ROOT%{py_sitescriptdir}/openipmigui/*.py}
+%{__rm} $RPM_BUILD_ROOT%{py3_sitedir}/*.{la,a}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -249,17 +245,17 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{perl_vendorarch}/auto/OpenIPMI
 %attr(755,root,root) %{perl_vendorarch}/auto/OpenIPMI/OpenIPMI.so
 
-%files -n python-%{name}
+%files -n python3-%{name}
 %defattr(644,root,root,755)
-%attr(755,root,root) %{py_sitedir}/_OpenIPMI.so
-%{py_sitescriptdir}/OpenIPMI.py[co]
+%attr(755,root,root) %{py3_sitedir}/_OpenIPMI.so
+%{py3_sitescriptdir}/OpenIPMI.py
+%{py3_sitescriptdir}/__pycache__/OpenIPMI.cpython-*.py[co]
 
 %if %{with gui}
 %files gui
 %defattr(644,root,root,755)
 %doc swig/python/openipmigui/TODO
 %attr(755,root,root) %{_bindir}/openipmigui
-%dir %{py_sitescriptdir}/openipmigui
-%{py_sitescriptdir}/openipmigui/*.py[co]
+%{py3_sitescriptdir}/openipmigui
 %{_mandir}/man1/openipmigui.1*
 %endif
