@@ -14,6 +14,7 @@ Source0:	http://downloads.sourceforge.net/openipmi/%{name}-%{version}.tar.gz
 Patch0:		%{name}-tcl.patch
 URL:		http://openipmi.sourceforge.net/
 BuildRequires:	autoconf >= 2.50
+BuildRequires:	autoconf-archive >= 2017.03.21
 BuildRequires:	automake
 BuildRequires:	gcc >= 5:3.2
 BuildRequires:	gdbm-devel
@@ -116,6 +117,7 @@ Graficzny interfejs użytkownika do OpenIPMI.
 %patch0 -p1
 
 %{__sed} -i -e '1s,/usr/bin/env python$,%{__python3},' swig/python/openipmigui.py
+%{__rm} m4/ax_python_devel.m4
 
 %build
 %{__libtoolize}
