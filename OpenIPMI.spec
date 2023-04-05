@@ -9,7 +9,7 @@ Version:	2.0.33
 Release:	1
 License:	LGPL v2+ (library), GPL v2+ (ipmicmd)
 Group:		Libraries
-Source0:	http://downloads.sourceforge.net/openipmi/%{name}-%{version}.tar.gz
+Source0:	https://downloads.sourceforge.net/openipmi/%{name}-%{version}.tar.gz
 # Source0-md5:	923d2914dbbc3307712f8c58401bab0f
 Patch0:		%{name}-tcl.patch
 URL:		http://openipmi.sourceforge.net/
