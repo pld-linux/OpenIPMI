@@ -27,6 +27,7 @@ BuildRequires:	perl-devel
 BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
 BuildRequires:	python3-devel >= 1:3.2
+BuildRequires:	python3-modules
 %{?with_gui:BuildRequires:	python3-tkinter}
 BuildRequires:	readline-devel
 BuildRequires:	sed >= 4.0
