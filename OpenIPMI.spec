@@ -132,7 +132,6 @@ CPPFLAGS="%{rpmcppflags} -I/usr/include/ncurses"
 	PYTHON=%{__python3} \
 	--with-pythoninstall=%{py3_sitescriptdir} \
 	--with-pythoninstalllib=%{py3_sitedir} \
-	--without-glib12 \
 	--with-tkinter%{!?with_gui:=no}
 %{__make} %{?with_gui:-j1}
 
