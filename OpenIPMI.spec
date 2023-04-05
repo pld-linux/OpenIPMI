@@ -28,6 +28,7 @@ BuildRequires:	pkgconfig
 BuildRequires:	popt-devel
 BuildRequires:	python3-devel >= 1:3.2
 %{?with_gui:BuildRequires:	python3-tkinter}
+BuildRequires:	readline-devel
 BuildRequires:	sed >= 4.0
 BuildRequires:	tcl-devel
 BuildRequires:	rpm-pythonprov
