@@ -1,16 +1,16 @@
 #
 # Conditional build:
-%bcond_without	gui	# don't build tkinter-based GUI
+%bcond_without	gui	# tkinter-based GUI
 #
 Summary:	IPMI abstraction layer
 Summary(pl.UTF-8):	Warstwa abstrakcji IPMI
 Name:		OpenIPMI
-Version:	2.0.35
-Release:	2
+Version:	2.0.36
+Release:	1
 License:	LGPL v2+ (library), GPL v2+ (ipmicmd)
 Group:		Libraries
 Source0:	https://downloads.sourceforge.net/openipmi/%{name}-%{version}.tar.gz
-# Source0-md5:	2e2f7fdc9582f6d943877a66f924f0a5
+# Source0-md5:	e77028dcfb6e91cc256da19723af1a2e
 Patch0:		%{name}-tcl.patch
 URL:		http://openipmi.sourceforge.net/
 BuildRequires:	autoconf >= 2.50
