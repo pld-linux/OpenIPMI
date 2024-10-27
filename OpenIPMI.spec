@@ -1,6 +1,7 @@
 #
 # Conditional build:
-%bcond_without	gui	# tkinter-based GUI
+%bcond_without	gui		# tkinter-based GUI
+%bcond_without	static_libs	# static libraries
 #
 Summary:	IPMI abstraction layer
 Summary(pl.UTF-8):	Warstwa abstrakcji IPMI
@@ -30,11 +31,12 @@ BuildRequires:	python3-devel >= 1:3.2
 BuildRequires:	python3-modules
 %{?with_gui:BuildRequires:	python3-tkinter}
 BuildRequires:	readline-devel
-BuildRequires:	sed >= 4.0
-BuildRequires:	tcl-devel
 BuildRequires:	rpm-pythonprov
+BuildRequires:	rpmbuild(macros) >= 1.527
+BuildRequires:	sed >= 4.0
 BuildRequires:	swig-perl >= 1.3.25
 BuildRequires:	swig-python >= 2.0
+BuildRequires:	tcl-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # libOpenIPMIcmdlang refers to global ipmi_cmdlang_{global_err,report_event} symbols
@@ -130,6 +132,7 @@ Graficzny interfejs użytkownika do OpenIPMI.
 CPPFLAGS="%{rpmcppflags} -I/usr/include/ncurses"
 %configure \
 	PYTHON=%{__python3} \
+	%{__enable_disable static_libs static} \
 	--with-pythoninstall=%{py3_sitescriptdir} \
 	--with-pythoninstalllib=%{py3_sitedir} \
 	--with-tkinter%{!?with_gui:=no}
@@ -144,7 +147,8 @@ rm -rf $RPM_BUILD_ROOT
 %py3_comp $RPM_BUILD_ROOT%{py3_sitescriptdir}
 %py3_ocomp $RPM_BUILD_ROOT%{py3_sitescriptdir}
 
-%{__rm} $RPM_BUILD_ROOT%{py3_sitedir}/*.{la,a}
+%{__rm} $RPM_BUILD_ROOT%{py3_sitedir}/*.la
+%{?with_static_libs:%{__rm} $RPM_BUILD_ROOT%{py3_sitedir}/*.a}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -230,6 +234,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_pkgconfigdir}/OpenIPMIui.pc
 %{_pkgconfigdir}/OpenIPMIutils.pc
 
+%if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libIPMIlanserv.a
@@ -241,6 +246,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libOpenIPMItcl.a
 %{_libdir}/libOpenIPMIui.a
 %{_libdir}/libOpenIPMIutils.a
+%endif
 
 %files -n perl-%{name}
 %defattr(644,root,root,755)
