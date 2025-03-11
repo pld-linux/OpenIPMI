@@ -118,7 +118,7 @@ Graficzny interfejs użytkownika do OpenIPMI.
 
 %prep
 %setup -q
-%patch0 -p1
+%patch -P 0 -p1
 
 %{__sed} -i -e '1s,/usr/bin/env python$,%{__python3},' swig/python/openipmigui.py
 %{__rm} m4/ax_python_devel.m4
