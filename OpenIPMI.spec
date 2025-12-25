@@ -6,14 +6,14 @@
 Summary:	IPMI abstraction layer
 Summary(pl.UTF-8):	Warstwa abstrakcji IPMI
 Name:		OpenIPMI
-Version:	2.0.36
-Release:	4
+Version:	2.0.37
+Release:	1
 License:	LGPL v2+ (library), GPL v2+ (ipmicmd)
 Group:		Libraries
 Source0:	https://downloads.sourceforge.net/openipmi/%{name}-%{version}.tar.gz
-# Source0-md5:	e77028dcfb6e91cc256da19723af1a2e
+# Source0-md5:	3bdc28587e051224b7400f63f9d905db
 Patch0:		%{name}-tcl.patch
-URL:		http://openipmi.sourceforge.net/
+URL:		https://openipmi.sourceforge.net/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	autoconf-archive >= 2017.03.21
 BuildRequires:	automake
@@ -170,24 +170,24 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/rmcp_ping
 %attr(755,root,root) %{_bindir}/sdrcomp
 %attr(755,root,root) %{_bindir}/solterm
-%attr(755,root,root) %{_libdir}/libIPMIlanserv.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libIPMIlanserv.so.0
-%attr(755,root,root) %{_libdir}/libOpenIPMI.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libOpenIPMI.so.0
-%attr(755,root,root) %{_libdir}/libOpenIPMIcmdlang.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libOpenIPMIcmdlang.so.0
-%attr(755,root,root) %{_libdir}/libOpenIPMIglib.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libOpenIPMIglib.so.0
-%attr(755,root,root) %{_libdir}/libOpenIPMIposix.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libOpenIPMIposix.so.0
-%attr(755,root,root) %{_libdir}/libOpenIPMIpthread.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libOpenIPMIpthread.so.0
-%attr(755,root,root) %{_libdir}/libOpenIPMItcl.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libOpenIPMItcl.so.0
-%attr(755,root,root) %{_libdir}/libOpenIPMIui.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libOpenIPMIui.so.1
-%attr(755,root,root) %{_libdir}/libOpenIPMIutils.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libOpenIPMIutils.so.0
+%{_libdir}/libIPMIlanserv.so.*.*.*
+%ghost %{_libdir}/libIPMIlanserv.so.0
+%{_libdir}/libOpenIPMI.so.*.*.*
+%ghost %{_libdir}/libOpenIPMI.so.0
+%{_libdir}/libOpenIPMIcmdlang.so.*.*.*
+%ghost %{_libdir}/libOpenIPMIcmdlang.so.0
+%{_libdir}/libOpenIPMIglib.so.*.*.*
+%ghost %{_libdir}/libOpenIPMIglib.so.0
+%{_libdir}/libOpenIPMIposix.so.*.*.*
+%ghost %{_libdir}/libOpenIPMIposix.so.0
+%{_libdir}/libOpenIPMIpthread.so.*.*.*
+%ghost %{_libdir}/libOpenIPMIpthread.so.0
+%{_libdir}/libOpenIPMItcl.so.*.*.*
+%ghost %{_libdir}/libOpenIPMItcl.so.0
+%{_libdir}/libOpenIPMIui.so.*.*.*
+%ghost %{_libdir}/libOpenIPMIui.so.1
+%{_libdir}/libOpenIPMIutils.so.*.*.*
+%ghost %{_libdir}/libOpenIPMIutils.so.0
 %dir %{_sysconfdir}/ipmi
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ipmi/ipmisim1.emu
 %attr(600,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ipmi/lan.conf
@@ -206,15 +206,15 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libIPMIlanserv.so
-%attr(755,root,root) %{_libdir}/libOpenIPMI.so
-%attr(755,root,root) %{_libdir}/libOpenIPMIcmdlang.so
-%attr(755,root,root) %{_libdir}/libOpenIPMIglib.so
-%attr(755,root,root) %{_libdir}/libOpenIPMIposix.so
-%attr(755,root,root) %{_libdir}/libOpenIPMIpthread.so
-%attr(755,root,root) %{_libdir}/libOpenIPMItcl.so
-%attr(755,root,root) %{_libdir}/libOpenIPMIui.so
-%attr(755,root,root) %{_libdir}/libOpenIPMIutils.so
+%{_libdir}/libIPMIlanserv.so
+%{_libdir}/libOpenIPMI.so
+%{_libdir}/libOpenIPMIcmdlang.so
+%{_libdir}/libOpenIPMIglib.so
+%{_libdir}/libOpenIPMIposix.so
+%{_libdir}/libOpenIPMIpthread.so
+%{_libdir}/libOpenIPMItcl.so
+%{_libdir}/libOpenIPMIui.so
+%{_libdir}/libOpenIPMIutils.so
 %{_libdir}/libIPMIlanserv.la
 %{_libdir}/libOpenIPMI.la
 %{_libdir}/libOpenIPMIcmdlang.la
@@ -252,11 +252,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{perl_vendorarch}/OpenIPMI.pm
 %dir %{perl_vendorarch}/auto/OpenIPMI
-%attr(755,root,root) %{perl_vendorarch}/auto/OpenIPMI/OpenIPMI.so
+%{perl_vendorarch}/auto/OpenIPMI/OpenIPMI.so
 
 %files -n python3-%{name}
 %defattr(644,root,root,755)
-%attr(755,root,root) %{py3_sitedir}/_OpenIPMI.so
+%{py3_sitedir}/_OpenIPMI.so
 %{py3_sitescriptdir}/OpenIPMI.py
 %{py3_sitescriptdir}/__pycache__/OpenIPMI.cpython-*.py[co]
 
