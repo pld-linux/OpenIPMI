@@ -9,3 +9,14 @@
        if test "x$FOUND_TCL_HEADER" != "xyes"; then
           AC_CHECK_HEADER(tcl/tcl.h, FOUND_TCL_HEADER=yes; )
  	 if test "x$FOUND_TCL_HEADER" == "xyes"; then
+--- OpenIPMI-2.0.37/tcl/tcl_os_hnd.c	2024-04-18 03:30:21.000000000 +0200
++++ OpenIPMI-2.0.37/tcl/tcl_os_hnd.c	2026-05-22 11:54:41.151366398 +0200
+@@ -374,7 +374,7 @@
+ {
+     if (cond->waiters)
+ 	return EBUSY;
+-    Tcl_ConditionFinalize(cond->cond);
++    Tcl_ConditionFinalize(&cond->cond);
+     free(cond);
+     return 0;
+ }
